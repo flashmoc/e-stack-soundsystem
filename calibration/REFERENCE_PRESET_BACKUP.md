@@ -132,7 +132,7 @@ Source utilisateur datée du 30/08/2026.
 | MID L | t.amp E400 | 26 dB, potard max | 26.7 dB | 25.3 Vrms | 80 W @ 8 Ω | -5.1 dBFS | -6.1 dB | 2 ms | 200 ms | 20:1 |
 | MID R | t.amp E400 | 26 dB, potard max | 26.7 dB | 25.3 Vrms | 80 W @ 8 Ω | -5.1 dBFS | -6.1 dB | 2 ms | 200 ms | 20:1 |
 | HIGH L | ampli HIGH/Fosi | Potard réduit | 19.9 dB | 11.5 Vrms | ≈16.5 W @ 8 Ω | -5.1 dBFS | -6.1 dB | 1 ms | 150 ms | 20:1 |
-| HIGH R | ampli HIGH/Fosi | même position | ≈19.9 dB* | 11.5 Vrms | ≈16.5 W @ 8 Ω | -5.1 dBFS | non documenté | 1 ms | 150 ms | 20:1 |
+| HIGH R | ampli HIGH/Fosi | même position | ≈19.9 dB* | 11.5 Vrms | ≈16.5 W @ 8 Ω | -5.1 dBFS | -6.1 dB | 1 ms | 150 ms | 20:1 |
 
 Voir aussi `docs/limiters-and-amplifiers.md` pour les remarques de traçabilité.
 
@@ -142,6 +142,5 @@ Avant de considérer ce backup comme définitif :
 - valeur absolue delay SUB
 - valeur absolue delay KICK
 - comparer les hard limiters et compresseurs ci-dessus avec le YAML réellement chargé
-- confirmer le seuil Compresseur HIGH R (cellule vide dans la capture source)
 - autres protections / hard limits éventuellement présentes dans la pipeline
 - YAML final exporté
