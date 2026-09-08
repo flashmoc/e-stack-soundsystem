@@ -10,21 +10,23 @@ The mirrored files are intentionally kept under `docs/camillanode/` so they do n
 
 ## Mirrored source documents
 
-| Source path | Source blob SHA |
-| --- | --- |
-| `docs/README.md` | `23bb6ef2979f7d791b928ec51959d6c72ff2e6da` |
-| `docs/architecture.md` | `a0fb0f19d92b04b0faa9a37e10ec7333ae91dd4b` |
-| `docs/dsp-safety.md` | `02bf1113202fd940639267724dd6add98d79f631` |
-| `docs/estack-dsp-architecture.md` | `d463dda5cdae9965ed28f5e2784534abec7136a7` |
-| `docs/estack-dsp-product.md` | `ba4226ab409303c412fdafb945e99b999504e62a` |
-| `docs/measurement-batch.md` | `d52a1dc2f4fff8b67d969f6cf46d5054e62e2ba8` |
-| `docs/persistence.md` | `b17a0a33ac19db96260da105a4c7232fb3a0b93a` |
-| `docs/raspberry.md` | `07dead708752b0182c5794bf6631707d178136e9` |
-| `docs/runtime-contracts.md` | `73e3ab622b84c313d54ef32e2d700fa565ebda73` |
-| `docs/ui-architecture.md` | `25dec31e2e17d64e1f0f446a9e5268e48a917666` |
-| `docs/pages/control.md` | `e5c8e42f0434a59d22b7aa920907fcd2ff8a7536` |
+| Source path | Destination | Source blob SHA |
+| --- | --- | --- |
+| `README.md` | `docs/camillanode/repository-README.md` | `c40916b22abfc8b86e39939d8cbc1ce7a9b7d99f` |
+| `AGENTS.md` | `docs/camillanode/AGENTS.md` | `7045df4e4e758acc9a8295a329f72978958182bf` |
+| `docs/README.md` | `docs/camillanode/README.md` | `23bb6ef2979f7d791b928ec51959d6c72ff2e6da` |
+| `docs/architecture.md` | `docs/camillanode/architecture.md` | `a0fb0f19d92b04b0faa9a37e10ec7333ae91dd4b` |
+| `docs/dsp-safety.md` | `docs/camillanode/dsp-safety.md` | `02bf1113202fd940639267724dd6add98d79f631` |
+| `docs/estack-dsp-architecture.md` | `docs/camillanode/estack-dsp-architecture.md` | `d463dda5cdae9965ed28f5e2784534abec7136a7` |
+| `docs/estack-dsp-product.md` | `docs/camillanode/estack-dsp-product.md` | `ba4226ab409303c412fdafb945e99b999504e62a` |
+| `docs/measurement-batch.md` | `docs/camillanode/measurement-batch.md` | `d52a1dc2f4fff8b67d969f6cf46d5054e62e2ba8` |
+| `docs/persistence.md` | `docs/camillanode/persistence.md` | `b17a0a33ac19db96260da105a4c7232fb3a0b93a` |
+| `docs/raspberry.md` | `docs/camillanode/raspberry.md` | `07dead708752b0182c5794bf6631707d178136e9` |
+| `docs/runtime-contracts.md` | `docs/camillanode/runtime-contracts.md` | `73e3ab622b84c313d54ef32e2d700fa565ebda73` |
+| `docs/ui-architecture.md` | `docs/camillanode/ui-architecture.md` | `25dec31e2e17d64e1f0f446a9e5268e48a917666` |
+| `docs/pages/control.md` | `docs/camillanode/pages/control.md` | `e5c8e42f0434a59d22b7aa920907fcd2ff8a7536` |
 
-Supporting Measurement Batch examples were also copied to `measurements/batch-examples/`.
+Supporting Measurement Batch examples were also copied from the CamillaNode repository to `measurements/batch-examples/`.
 
 ## Authority / update rule
 
