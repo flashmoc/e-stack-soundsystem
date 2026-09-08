@@ -11,7 +11,7 @@ Source : tableau utilisateur daté du **30/08/2026**, recopié depuis la note de
 | MID L | t.amp E400 | 26 dB, potard max | 26.7 dB | 25.3 Vrms | 80 W @ 8 Ω | -5.1 dBFS | -6.1 dB |
 | MID R | t.amp E400 | 26 dB, potard max | 26.7 dB | 25.3 Vrms | 80 W @ 8 Ω | -5.1 dBFS | -6.1 dB |
 | HIGH L | ampli HIGH / Fosi | Potard réduit | 19.9 dB | 11.5 Vrms | ≈16.5 W @ 8 Ω | -5.1 dBFS | -6.1 dB |
-| HIGH R | ampli HIGH / Fosi | même position | ≈19.9 dB* | 11.5 Vrms | ≈16.5 W @ 8 Ω | -5.1 dBFS | non documenté sur la capture |
+| HIGH R | ampli HIGH / Fosi | même position | ≈19.9 dB* | 11.5 Vrms | ≈16.5 W @ 8 Ω | -5.1 dBFS | -6.1 dB |
 
 `*` Le gain HIGH R est noté approximatif dans la source utilisateur.
 
@@ -26,7 +26,6 @@ Source : tableau utilisateur daté du **30/08/2026**, recopié depuis la note de
 
 ## Remarques de traçabilité
 
-- La seconde capture rend lisible la colonne `Compresseur` : SUB -13.6 dB, KICK -16.8 dB, MID L/R -6.1 dB, HIGH L -6.1 dB.
-- La cellule `Compresseur` de HIGH R est vide dans la source. Ne pas supposer automatiquement qu'elle vaut -6.1 dB, même si HIGH L/R partagent les mêmes paramètres Attack/Release/Ratio.
+- Le seuil `Compresseur` HIGH R est confirmé par l'utilisateur comme identique à HIGH L : **-6.1 dB**.
 - Les seuils ci-dessus devront être comparés avec la configuration CamillaDSP/YAML réellement chargée sur le Raspberry avant de déclarer la sauvegarde de protection complète.
 - Les valeurs de tension/puissance doivent être conservées avec les réglages physiques des amplificateurs ; changer la position des potentiomètres modifie la validité des seuils dBFS calculés.
