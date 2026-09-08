@@ -121,12 +121,27 @@ Quand aucune mesure reverse n'est en cours :
 - MID NORMAL
 - HIGH NORMAL
 
-## 10. Éléments encore à sauvegarder
+## 10. Amplificateurs et limiteurs
+
+Source utilisateur datée du 30/08/2026.
+
+| Voie | Ampli | Réglage ampli | Gain mesuré | Limite HP | Équiv. puissance | Hard Limiter Camilla | Attack | Release | Ratio |
+|---|---|---|---:|---:|---:|---:|---:|---:|---:|
+| SUB | t.amp E1200 | Potard max | 40.1 dB | 50.0 Vrms | 625 W @ 4 Ω total | -12.6 dBFS | 10 ms | 500 ms | 20:1 |
+| KICK | t.amp E1200 | Potard max | 40.1 dB | 34.6 Vrms | 300 W @ 4 Ω | -15.8 dBFS | 5 ms | 300 ms | 20:1 |
+| MID L | t.amp E400 | 26 dB, potard max | 26.7 dB | 25.3 Vrms | 80 W @ 8 Ω | -5.1 dBFS | 2 ms | 200 ms | 20:1 |
+| MID R | t.amp E400 | 26 dB, potard max | 26.7 dB | 25.3 Vrms | 80 W @ 8 Ω | -5.1 dBFS | 2 ms | 200 ms | 20:1 |
+| HIGH L | ampli HIGH/Fosi | Potard réduit | 19.9 dB | 11.5 Vrms | ≈16.5 W @ 8 Ω | -5.1 dBFS | 1 ms | 150 ms | 20:1 |
+| HIGH R | ampli HIGH/Fosi | même position | ≈19.9 dB* | 11.5 Vrms | ≈16.5 W @ 8 Ω | -5.1 dBFS | 1 ms | 150 ms | 20:1 |
+
+Voir aussi `docs/limiters-and-amplifiers.md` pour les remarques de traçabilité.
+
+## 11. Éléments encore à sauvegarder
 
 Avant de considérer ce backup comme définitif :
 - valeur absolue delay SUB
 - valeur absolue delay KICK
-- limiteurs / seuils
-- protections / hard limits
-- éventuels gains/amplifier sensitivity mesurés
+- comparer les hard limiters ci-dessus avec le YAML réellement chargé
+- capturer toute colonne/paramètre de protection non lisible sur la capture source
+- autres protections / hard limits éventuellement présentes dans la pipeline
 - YAML final exporté
