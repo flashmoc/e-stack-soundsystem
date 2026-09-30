@@ -1,0 +1,887 @@
+{
+  "schema": "estack.measurement-batch",
+  "version": 1,
+  "name": "Stereo room reference — Pass 1 acquisition",
+  "description": "Campagne de mesure exhaustive mais non destructive pour le setup Stereo actuel. Objectif: acquérir des réponses complexes suffisamment complètes pour optimiser ensuite par analyse/simulation les 3 raccords, les delays, la balance L/R et la target de pièce. Les réglages de test ne s'accumulent pas: chaque étape repart du baseline capturé à START BATCH.",
+  "defaults": {
+    "muteUnlisted": true,
+    "settleMs": 700,
+    "measurementInput": 5,
+    "disabledFilters": [
+      "ESTACK_LOUDNESS"
+    ]
+  },
+  "steps": [
+    {
+      "id": "M01",
+      "name": "SUB SOLO C0",
+      "position": "C0 — sweet spot principal, capsule à hauteur d'oreille, orientation fixe vers le milieu entre les deux têtes",
+      "instruction": "Place le micro en C0. Ne le bouge plus jusqu'au changement de position indiqué.",
+      "activeWays": [
+        "SUB"
+      ],
+      "rew": {
+        "measurementName": "M01_SUB_SOLO_C0",
+        "startHz": 20,
+        "endHz": 300,
+        "levelDbfs": -20,
+        "timingReference": true,
+        "notes": "Réponse complexe SUB seul. Les deux caissons physiques restent considérés comme une seule voie DSP si alimentés par OUT1."
+      }
+    },
+    {
+      "id": "M02",
+      "name": "KICK SOLO C0",
+      "position": "C0 — sweet spot principal, capsule à hauteur d'oreille, orientation fixe vers le milieu entre les deux têtes",
+      "instruction": "Micro immobile.",
+      "activeWays": [
+        "KICK"
+      ],
+      "rew": {
+        "measurementName": "M02_KICK_SOLO_C0",
+        "startHz": 50,
+        "endHz": 900,
+        "levelDbfs": -20,
+        "timingReference": true,
+        "notes": "KICK seul, polarité et delay du baseline capturé."
+      }
+    },
+    {
+      "id": "M03",
+      "name": "MID L SOLO C0",
+      "position": "C0 — sweet spot principal, capsule à hauteur d'oreille, orientation fixe vers le milieu entre les deux têtes",
+      "instruction": "Micro immobile.",
+      "activeWays": [
+        "MID_L"
+      ],
+      "rew": {
+        "measurementName": "M03_MID_L_SOLO_C0",
+        "startHz": 150,
+        "endHz": 5000,
+        "levelDbfs": -20,
+        "timingReference": true,
+        "notes": "MID gauche seul avec PEQ/crossover/protection du baseline."
+      }
+    },
+    {
+      "id": "M04",
+      "name": "HIGH L SOLO C0",
+      "position": "C0 — sweet spot principal, capsule à hauteur d'oreille, orientation fixe vers le milieu entre les deux têtes",
+      "instruction": "Micro immobile.",
+      "activeWays": [
+        "HIGH_L"
+      ],
+      "rew": {
+        "measurementName": "M04_HIGH_L_SOLO_C0",
+        "startHz": 800,
+        "endHz": 20000,
+        "levelDbfs": -20,
+        "timingReference": true,
+        "notes": "HIGH gauche seul avec HPF/PEQ/protection du baseline."
+      }
+    },
+    {
+      "id": "M05",
+      "name": "MID R SOLO C0",
+      "position": "C0 — sweet spot principal, capsule à hauteur d'oreille, orientation fixe vers le milieu entre les deux têtes",
+      "instruction": "Micro immobile.",
+      "activeWays": [
+        "MID_R"
+      ],
+      "rew": {
+        "measurementName": "M05_MID_R_SOLO_C0",
+        "startHz": 150,
+        "endHz": 5000,
+        "levelDbfs": -20,
+        "timingReference": true,
+        "notes": "MID droit seul."
+      }
+    },
+    {
+      "id": "M06",
+      "name": "HIGH R SOLO C0",
+      "position": "C0 — sweet spot principal, capsule à hauteur d'oreille, orientation fixe vers le milieu entre les deux têtes",
+      "instruction": "Micro immobile.",
+      "activeWays": [
+        "HIGH_R"
+      ],
+      "rew": {
+        "measurementName": "M06_HIGH_R_SOLO_C0",
+        "startHz": 800,
+        "endHz": 20000,
+        "levelDbfs": -20,
+        "timingReference": true,
+        "notes": "HIGH droit seul."
+      }
+    },
+    {
+      "id": "M07",
+      "name": "MH L SUM C0",
+      "position": "C0 — sweet spot principal, capsule à hauteur d'oreille, orientation fixe vers le milieu entre les deux têtes",
+      "instruction": "Micro immobile.",
+      "activeWays": [
+        "MID_L",
+        "HIGH_L"
+      ],
+      "rew": {
+        "measurementName": "M07_MH_L_SUM_C0",
+        "startHz": 800,
+        "endHz": 8000,
+        "levelDbfs": -20,
+        "timingReference": true,
+        "notes": "Validation physique du raccord MID/HIGH gauche dans l'état normal du baseline."
+      }
+    },
+    {
+      "id": "M08",
+      "name": "MH L REV C0",
+      "position": "C0 — sweet spot principal, capsule à hauteur d'oreille, orientation fixe vers le milieu entre les deux têtes",
+      "instruction": "Micro immobile. HIGH L est inversé uniquement pour cette mesure; le runner reconstruira l'étape suivante depuis le baseline.",
+      "activeWays": [
+        "MID_L",
+        "HIGH_L"
+      ],
+      "ways": {
+        "HIGH_L": {
+          "polarity": "inverted"
+        }
+      },
+      "rew": {
+        "measurementName": "M08_MH_L_REV_C0",
+        "startHz": 800,
+        "endHz": 8000,
+        "levelDbfs": -20,
+        "timingReference": true,
+        "notes": "Reverse-null MID/HIGH gauche."
+      }
+    },
+    {
+      "id": "M09",
+      "name": "MH R SUM C0",
+      "position": "C0 — sweet spot principal, capsule à hauteur d'oreille, orientation fixe vers le milieu entre les deux têtes",
+      "instruction": "Micro immobile.",
+      "activeWays": [
+        "MID_R",
+        "HIGH_R"
+      ],
+      "rew": {
+        "measurementName": "M09_MH_R_SUM_C0",
+        "startHz": 800,
+        "endHz": 8000,
+        "levelDbfs": -20,
+        "timingReference": true,
+        "notes": "Validation physique du raccord MID/HIGH droit."
+      }
+    },
+    {
+      "id": "M10",
+      "name": "MH R REV C0",
+      "position": "C0 — sweet spot principal, capsule à hauteur d'oreille, orientation fixe vers le milieu entre les deux têtes",
+      "instruction": "Micro immobile. HIGH R est inversé uniquement pour cette mesure.",
+      "activeWays": [
+        "MID_R",
+        "HIGH_R"
+      ],
+      "ways": {
+        "HIGH_R": {
+          "polarity": "inverted"
+        }
+      },
+      "rew": {
+        "measurementName": "M10_MH_R_REV_C0",
+        "startHz": 800,
+        "endHz": 8000,
+        "levelDbfs": -20,
+        "timingReference": true,
+        "notes": "Reverse-null MID/HIGH droit."
+      }
+    },
+    {
+      "id": "M11",
+      "name": "KM L SUM C0",
+      "position": "C0 — sweet spot principal, capsule à hauteur d'oreille, orientation fixe vers le milieu entre les deux têtes",
+      "instruction": "Micro immobile.",
+      "activeWays": [
+        "KICK",
+        "MID_L"
+      ],
+      "rew": {
+        "measurementName": "M11_KM_L_SUM_C0",
+        "startHz": 100,
+        "endHz": 1500,
+        "levelDbfs": -20,
+        "timingReference": true,
+        "notes": "Raccord KICK/MID gauche. KICK conserve sa polarité baseline (actuellement inversée dans le preset Stereo exporté)."
+      }
+    },
+    {
+      "id": "M12",
+      "name": "KM L REV C0",
+      "position": "C0 — sweet spot principal, capsule à hauteur d'oreille, orientation fixe vers le milieu entre les deux têtes",
+      "instruction": "Micro immobile. MID L est inversé uniquement pour cette mesure.",
+      "activeWays": [
+        "KICK",
+        "MID_L"
+      ],
+      "ways": {
+        "MID_L": {
+          "polarity": "inverted"
+        }
+      },
+      "rew": {
+        "measurementName": "M12_KM_L_REV_C0",
+        "startHz": 100,
+        "endHz": 1500,
+        "levelDbfs": -20,
+        "timingReference": true,
+        "notes": "Reverse-null KICK/MID gauche sans modifier la polarité baseline du KICK."
+      }
+    },
+    {
+      "id": "M13",
+      "name": "KM R SUM C0",
+      "position": "C0 — sweet spot principal, capsule à hauteur d'oreille, orientation fixe vers le milieu entre les deux têtes",
+      "instruction": "Micro immobile.",
+      "activeWays": [
+        "KICK",
+        "MID_R"
+      ],
+      "rew": {
+        "measurementName": "M13_KM_R_SUM_C0",
+        "startHz": 100,
+        "endHz": 1500,
+        "levelDbfs": -20,
+        "timingReference": true,
+        "notes": "Raccord KICK/MID droit."
+      }
+    },
+    {
+      "id": "M14",
+      "name": "KM R REV C0",
+      "position": "C0 — sweet spot principal, capsule à hauteur d'oreille, orientation fixe vers le milieu entre les deux têtes",
+      "instruction": "Micro immobile. MID R est inversé uniquement pour cette mesure.",
+      "activeWays": [
+        "KICK",
+        "MID_R"
+      ],
+      "ways": {
+        "MID_R": {
+          "polarity": "inverted"
+        }
+      },
+      "rew": {
+        "measurementName": "M14_KM_R_REV_C0",
+        "startHz": 100,
+        "endHz": 1500,
+        "levelDbfs": -20,
+        "timingReference": true,
+        "notes": "Reverse-null KICK/MID droit."
+      }
+    },
+    {
+      "id": "M15",
+      "name": "SK SUM C0",
+      "position": "C0 — sweet spot principal, capsule à hauteur d'oreille, orientation fixe vers le milieu entre les deux têtes",
+      "instruction": "Micro immobile.",
+      "activeWays": [
+        "SUB",
+        "KICK"
+      ],
+      "rew": {
+        "measurementName": "M15_SK_SUM_C0",
+        "startHz": 20,
+        "endHz": 500,
+        "levelDbfs": -20,
+        "timingReference": true,
+        "notes": "Raccord SUB/KICK baseline."
+      }
+    },
+    {
+      "id": "M16",
+      "name": "SK REV C0",
+      "position": "C0 — sweet spot principal, capsule à hauteur d'oreille, orientation fixe vers le milieu entre les deux têtes",
+      "instruction": "Micro immobile. SUB est inversé uniquement pour cette mesure.",
+      "activeWays": [
+        "SUB",
+        "KICK"
+      ],
+      "ways": {
+        "SUB": {
+          "polarity": "inverted"
+        }
+      },
+      "rew": {
+        "measurementName": "M16_SK_REV_C0",
+        "startHz": 20,
+        "endHz": 500,
+        "levelDbfs": -20,
+        "timingReference": true,
+        "notes": "Reverse-null SUB/KICK."
+      }
+    },
+    {
+      "id": "M17",
+      "name": "TOP L C0",
+      "position": "C0 — sweet spot principal, capsule à hauteur d'oreille, orientation fixe vers le milieu entre les deux têtes",
+      "instruction": "Micro immobile.",
+      "activeWays": [
+        "MID_L",
+        "HIGH_L"
+      ],
+      "rew": {
+        "measurementName": "M17_TOP_L_C0",
+        "startHz": 150,
+        "endHz": 20000,
+        "levelDbfs": -20,
+        "timingReference": true,
+        "notes": "Tête gauche complète."
+      }
+    },
+    {
+      "id": "M18",
+      "name": "TOP R C0",
+      "position": "C0 — sweet spot principal, capsule à hauteur d'oreille, orientation fixe vers le milieu entre les deux têtes",
+      "instruction": "Micro immobile.",
+      "activeWays": [
+        "MID_R",
+        "HIGH_R"
+      ],
+      "rew": {
+        "measurementName": "M18_TOP_R_C0",
+        "startHz": 150,
+        "endHz": 20000,
+        "levelDbfs": -20,
+        "timingReference": true,
+        "notes": "Tête droite complète."
+      }
+    },
+    {
+      "id": "M19",
+      "name": "LOW C0",
+      "position": "C0 — sweet spot principal, capsule à hauteur d'oreille, orientation fixe vers le milieu entre les deux têtes",
+      "instruction": "Micro immobile.",
+      "activeWays": [
+        "SUB",
+        "KICK"
+      ],
+      "rew": {
+        "measurementName": "M19_LOW_C0",
+        "startHz": 20,
+        "endHz": 1200,
+        "levelDbfs": -20,
+        "timingReference": true,
+        "notes": "Section grave complète."
+      }
+    },
+    {
+      "id": "M20",
+      "name": "SYSTEM L EMU C0",
+      "position": "C0 — sweet spot principal, capsule à hauteur d'oreille, orientation fixe vers le milieu entre les deux têtes",
+      "instruction": "Micro immobile.",
+      "activeWays": [
+        "SUB",
+        "KICK",
+        "MID_L",
+        "HIGH_L"
+      ],
+      "ways": {
+        "SUB": {
+          "gainOffsetDb": -6.0206
+        },
+        "KICK": {
+          "gainOffsetDb": -6.0206
+        }
+      },
+      "rew": {
+        "measurementName": "M20_SYSTEM_L_EMU_C0",
+        "startHz": 20,
+        "endHz": 20000,
+        "levelDbfs": -20,
+        "timingReference": true,
+        "notes": "Émulation d'une entrée programme gauche seule: SUB/KICK -6.0206 dB pour reproduire la contribution d'un seul canal au sommateur mono."
+      }
+    },
+    {
+      "id": "M21",
+      "name": "SYSTEM R EMU C0",
+      "position": "C0 — sweet spot principal, capsule à hauteur d'oreille, orientation fixe vers le milieu entre les deux têtes",
+      "instruction": "Micro immobile.",
+      "activeWays": [
+        "SUB",
+        "KICK",
+        "MID_R",
+        "HIGH_R"
+      ],
+      "ways": {
+        "SUB": {
+          "gainOffsetDb": -6.0206
+        },
+        "KICK": {
+          "gainOffsetDb": -6.0206
+        }
+      },
+      "rew": {
+        "measurementName": "M21_SYSTEM_R_EMU_C0",
+        "startHz": 20,
+        "endHz": 20000,
+        "levelDbfs": -20,
+        "timingReference": true,
+        "notes": "Émulation d'une entrée programme droite seule: SUB/KICK -6.0206 dB."
+      }
+    },
+    {
+      "id": "M22",
+      "name": "SYSTEM MONO C0",
+      "position": "C0 — sweet spot principal, capsule à hauteur d'oreille, orientation fixe vers le milieu entre les deux têtes",
+      "instruction": "Micro immobile.",
+      "activeWays": [
+        "SUB",
+        "KICK",
+        "MID_L",
+        "MID_R",
+        "HIGH_L",
+        "HIGH_R"
+      ],
+      "rew": {
+        "measurementName": "M22_SYSTEM_MONO_C0",
+        "startHz": 20,
+        "endHz": 20000,
+        "levelDbfs": -20,
+        "timingReference": true,
+        "notes": "Signal mono corrélé envoyé à toutes les voies. À utiliser comme contrôle phantom-center, pas comme seule base d'EQ au-dessus du grave à cause du peigne L/R."
+      }
+    },
+    {
+      "id": "M23",
+      "name": "SUB SOLO L20",
+      "position": "L20 — 20 cm à gauche de C0, même hauteur et même orientation",
+      "instruction": "Déplace maintenant le micro de 20 cm à gauche de C0, sans changer hauteur ni orientation.",
+      "activeWays": [
+        "SUB"
+      ],
+      "rew": {
+        "measurementName": "M23_SUB_SOLO_L20",
+        "startHz": 20,
+        "endHz": 300,
+        "levelDbfs": -20,
+        "timingReference": true,
+        "notes": "Sous-grave spatial: nécessaire pour optimiser SUB/KICK de manière robuste avec les caissons éloignés."
+      }
+    },
+    {
+      "id": "M24",
+      "name": "KICK SOLO L20",
+      "position": "L20 — 20 cm à gauche de C0, même hauteur et même orientation",
+      "instruction": "Ne bouge plus le micro.",
+      "activeWays": [
+        "KICK"
+      ],
+      "rew": {
+        "measurementName": "M24_KICK_SOLO_L20",
+        "startHz": 50,
+        "endHz": 900,
+        "levelDbfs": -20,
+        "timingReference": true,
+        "notes": "KICK spatial pour simulation de delay/phase avec SUB."
+      }
+    },
+    {
+      "id": "M25",
+      "name": "SK SUM L20",
+      "position": "L20 — 20 cm à gauche de C0, même hauteur et même orientation",
+      "instruction": "Ne bouge plus le micro.",
+      "activeWays": [
+        "SUB",
+        "KICK"
+      ],
+      "rew": {
+        "measurementName": "M25_SK_SUM_L20",
+        "startHz": 20,
+        "endHz": 500,
+        "levelDbfs": -20,
+        "timingReference": true,
+        "notes": "Somme physique SUB+KICK à cette position."
+      }
+    },
+    {
+      "id": "M26",
+      "name": "SYSTEM L EMU L20",
+      "position": "L20 — 20 cm à gauche de C0, même hauteur et même orientation",
+      "instruction": "Ne bouge plus le micro.",
+      "activeWays": [
+        "SUB",
+        "KICK",
+        "MID_L",
+        "HIGH_L"
+      ],
+      "ways": {
+        "SUB": {
+          "gainOffsetDb": -6.0206
+        },
+        "KICK": {
+          "gainOffsetDb": -6.0206
+        }
+      },
+      "rew": {
+        "measurementName": "M26_SYSTEM_L_EMU_L20",
+        "startHz": 20,
+        "endHz": 20000,
+        "levelDbfs": -20,
+        "timingReference": true,
+        "notes": "Réponse système côté gauche, routage programme simulé."
+      }
+    },
+    {
+      "id": "M27",
+      "name": "SYSTEM R EMU L20",
+      "position": "L20 — 20 cm à gauche de C0, même hauteur et même orientation",
+      "instruction": "Ne bouge plus le micro.",
+      "activeWays": [
+        "SUB",
+        "KICK",
+        "MID_R",
+        "HIGH_R"
+      ],
+      "ways": {
+        "SUB": {
+          "gainOffsetDb": -6.0206
+        },
+        "KICK": {
+          "gainOffsetDb": -6.0206
+        }
+      },
+      "rew": {
+        "measurementName": "M27_SYSTEM_R_EMU_L20",
+        "startHz": 20,
+        "endHz": 20000,
+        "levelDbfs": -20,
+        "timingReference": true,
+        "notes": "Réponse système côté droit, routage programme simulé."
+      }
+    },
+    {
+      "id": "M28",
+      "name": "SUB SOLO R20",
+      "position": "R20 — 20 cm à droite de C0, même hauteur et même orientation",
+      "instruction": "Déplace maintenant le micro de 20 cm à droite de C0, sans changer hauteur ni orientation.",
+      "activeWays": [
+        "SUB"
+      ],
+      "rew": {
+        "measurementName": "M28_SUB_SOLO_R20",
+        "startHz": 20,
+        "endHz": 300,
+        "levelDbfs": -20,
+        "timingReference": true,
+        "notes": "Sous-grave spatial: nécessaire pour optimiser SUB/KICK de manière robuste avec les caissons éloignés."
+      }
+    },
+    {
+      "id": "M29",
+      "name": "KICK SOLO R20",
+      "position": "R20 — 20 cm à droite de C0, même hauteur et même orientation",
+      "instruction": "Ne bouge plus le micro.",
+      "activeWays": [
+        "KICK"
+      ],
+      "rew": {
+        "measurementName": "M29_KICK_SOLO_R20",
+        "startHz": 50,
+        "endHz": 900,
+        "levelDbfs": -20,
+        "timingReference": true,
+        "notes": "KICK spatial pour simulation de delay/phase avec SUB."
+      }
+    },
+    {
+      "id": "M30",
+      "name": "SK SUM R20",
+      "position": "R20 — 20 cm à droite de C0, même hauteur et même orientation",
+      "instruction": "Ne bouge plus le micro.",
+      "activeWays": [
+        "SUB",
+        "KICK"
+      ],
+      "rew": {
+        "measurementName": "M30_SK_SUM_R20",
+        "startHz": 20,
+        "endHz": 500,
+        "levelDbfs": -20,
+        "timingReference": true,
+        "notes": "Somme physique SUB+KICK à cette position."
+      }
+    },
+    {
+      "id": "M31",
+      "name": "SYSTEM L EMU R20",
+      "position": "R20 — 20 cm à droite de C0, même hauteur et même orientation",
+      "instruction": "Ne bouge plus le micro.",
+      "activeWays": [
+        "SUB",
+        "KICK",
+        "MID_L",
+        "HIGH_L"
+      ],
+      "ways": {
+        "SUB": {
+          "gainOffsetDb": -6.0206
+        },
+        "KICK": {
+          "gainOffsetDb": -6.0206
+        }
+      },
+      "rew": {
+        "measurementName": "M31_SYSTEM_L_EMU_R20",
+        "startHz": 20,
+        "endHz": 20000,
+        "levelDbfs": -20,
+        "timingReference": true,
+        "notes": "Réponse système côté gauche, routage programme simulé."
+      }
+    },
+    {
+      "id": "M32",
+      "name": "SYSTEM R EMU R20",
+      "position": "R20 — 20 cm à droite de C0, même hauteur et même orientation",
+      "instruction": "Ne bouge plus le micro.",
+      "activeWays": [
+        "SUB",
+        "KICK",
+        "MID_R",
+        "HIGH_R"
+      ],
+      "ways": {
+        "SUB": {
+          "gainOffsetDb": -6.0206
+        },
+        "KICK": {
+          "gainOffsetDb": -6.0206
+        }
+      },
+      "rew": {
+        "measurementName": "M32_SYSTEM_R_EMU_R20",
+        "startHz": 20,
+        "endHz": 20000,
+        "levelDbfs": -20,
+        "timingReference": true,
+        "notes": "Réponse système côté droit, routage programme simulé."
+      }
+    },
+    {
+      "id": "M33",
+      "name": "SUB SOLO F20",
+      "position": "F20 — 20 cm en avant de C0, même hauteur et même orientation",
+      "instruction": "Déplace maintenant le micro de 20 cm vers l'avant depuis C0, sans changer hauteur ni orientation.",
+      "activeWays": [
+        "SUB"
+      ],
+      "rew": {
+        "measurementName": "M33_SUB_SOLO_F20",
+        "startHz": 20,
+        "endHz": 300,
+        "levelDbfs": -20,
+        "timingReference": true,
+        "notes": "Sous-grave spatial: nécessaire pour optimiser SUB/KICK de manière robuste avec les caissons éloignés."
+      }
+    },
+    {
+      "id": "M34",
+      "name": "KICK SOLO F20",
+      "position": "F20 — 20 cm en avant de C0, même hauteur et même orientation",
+      "instruction": "Ne bouge plus le micro.",
+      "activeWays": [
+        "KICK"
+      ],
+      "rew": {
+        "measurementName": "M34_KICK_SOLO_F20",
+        "startHz": 50,
+        "endHz": 900,
+        "levelDbfs": -20,
+        "timingReference": true,
+        "notes": "KICK spatial pour simulation de delay/phase avec SUB."
+      }
+    },
+    {
+      "id": "M35",
+      "name": "SK SUM F20",
+      "position": "F20 — 20 cm en avant de C0, même hauteur et même orientation",
+      "instruction": "Ne bouge plus le micro.",
+      "activeWays": [
+        "SUB",
+        "KICK"
+      ],
+      "rew": {
+        "measurementName": "M35_SK_SUM_F20",
+        "startHz": 20,
+        "endHz": 500,
+        "levelDbfs": -20,
+        "timingReference": true,
+        "notes": "Somme physique SUB+KICK à cette position."
+      }
+    },
+    {
+      "id": "M36",
+      "name": "SYSTEM L EMU F20",
+      "position": "F20 — 20 cm en avant de C0, même hauteur et même orientation",
+      "instruction": "Ne bouge plus le micro.",
+      "activeWays": [
+        "SUB",
+        "KICK",
+        "MID_L",
+        "HIGH_L"
+      ],
+      "ways": {
+        "SUB": {
+          "gainOffsetDb": -6.0206
+        },
+        "KICK": {
+          "gainOffsetDb": -6.0206
+        }
+      },
+      "rew": {
+        "measurementName": "M36_SYSTEM_L_EMU_F20",
+        "startHz": 20,
+        "endHz": 20000,
+        "levelDbfs": -20,
+        "timingReference": true,
+        "notes": "Réponse système côté gauche, routage programme simulé."
+      }
+    },
+    {
+      "id": "M37",
+      "name": "SYSTEM R EMU F20",
+      "position": "F20 — 20 cm en avant de C0, même hauteur et même orientation",
+      "instruction": "Ne bouge plus le micro.",
+      "activeWays": [
+        "SUB",
+        "KICK",
+        "MID_R",
+        "HIGH_R"
+      ],
+      "ways": {
+        "SUB": {
+          "gainOffsetDb": -6.0206
+        },
+        "KICK": {
+          "gainOffsetDb": -6.0206
+        }
+      },
+      "rew": {
+        "measurementName": "M37_SYSTEM_R_EMU_F20",
+        "startHz": 20,
+        "endHz": 20000,
+        "levelDbfs": -20,
+        "timingReference": true,
+        "notes": "Réponse système côté droit, routage programme simulé."
+      }
+    },
+    {
+      "id": "M38",
+      "name": "SUB SOLO B20",
+      "position": "B20 — 20 cm en arrière de C0, même hauteur et même orientation",
+      "instruction": "Déplace maintenant le micro de 20 cm vers l'arrière depuis C0, sans changer hauteur ni orientation.",
+      "activeWays": [
+        "SUB"
+      ],
+      "rew": {
+        "measurementName": "M38_SUB_SOLO_B20",
+        "startHz": 20,
+        "endHz": 300,
+        "levelDbfs": -20,
+        "timingReference": true,
+        "notes": "Sous-grave spatial: nécessaire pour optimiser SUB/KICK de manière robuste avec les caissons éloignés."
+      }
+    },
+    {
+      "id": "M39",
+      "name": "KICK SOLO B20",
+      "position": "B20 — 20 cm en arrière de C0, même hauteur et même orientation",
+      "instruction": "Ne bouge plus le micro.",
+      "activeWays": [
+        "KICK"
+      ],
+      "rew": {
+        "measurementName": "M39_KICK_SOLO_B20",
+        "startHz": 50,
+        "endHz": 900,
+        "levelDbfs": -20,
+        "timingReference": true,
+        "notes": "KICK spatial pour simulation de delay/phase avec SUB."
+      }
+    },
+    {
+      "id": "M40",
+      "name": "SK SUM B20",
+      "position": "B20 — 20 cm en arrière de C0, même hauteur et même orientation",
+      "instruction": "Ne bouge plus le micro.",
+      "activeWays": [
+        "SUB",
+        "KICK"
+      ],
+      "rew": {
+        "measurementName": "M40_SK_SUM_B20",
+        "startHz": 20,
+        "endHz": 500,
+        "levelDbfs": -20,
+        "timingReference": true,
+        "notes": "Somme physique SUB+KICK à cette position."
+      }
+    },
+    {
+      "id": "M41",
+      "name": "SYSTEM L EMU B20",
+      "position": "B20 — 20 cm en arrière de C0, même hauteur et même orientation",
+      "instruction": "Ne bouge plus le micro.",
+      "activeWays": [
+        "SUB",
+        "KICK",
+        "MID_L",
+        "HIGH_L"
+      ],
+      "ways": {
+        "SUB": {
+          "gainOffsetDb": -6.0206
+        },
+        "KICK": {
+          "gainOffsetDb": -6.0206
+        }
+      },
+      "rew": {
+        "measurementName": "M41_SYSTEM_L_EMU_B20",
+        "startHz": 20,
+        "endHz": 20000,
+        "levelDbfs": -20,
+        "timingReference": true,
+        "notes": "Réponse système côté gauche, routage programme simulé."
+      }
+    },
+    {
+      "id": "M42",
+      "name": "SYSTEM R EMU B20",
+      "position": "B20 — 20 cm en arrière de C0, même hauteur et même orientation",
+      "instruction": "Ne bouge plus le micro.",
+      "activeWays": [
+        "SUB",
+        "KICK",
+        "MID_R",
+        "HIGH_R"
+      ],
+      "ways": {
+        "SUB": {
+          "gainOffsetDb": -6.0206
+        },
+        "KICK": {
+          "gainOffsetDb": -6.0206
+        }
+      },
+      "rew": {
+        "measurementName": "M42_SYSTEM_R_EMU_B20",
+        "startHz": 20,
+        "endHz": 20000,
+        "levelDbfs": -20,
+        "timingReference": true,
+        "notes": "Réponse système côté droit, routage programme simulé."
+      }
+    }
+  ]
+}
