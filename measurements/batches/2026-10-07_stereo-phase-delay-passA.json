@@ -1,0 +1,787 @@
+{
+  "schema": "estack.measurement-batch",
+  "version": 1,
+  "name": "Stereo phase/delay optimisation — Pass A",
+  "description": "Acquisition complexe dédiée au calage temporel et de phase du setup Stereo. Le but n'est pas de balayer physiquement des dizaines de delays: les six voies sont mesurées séparément à cinq positions avec timing loopback, puis delays/polarités/AllpassFO sont optimisés numériquement. SUM/REV à C0 servent d'ancres de reconstruction. Le Loudness est désactivé; XO, PEQ de voie et protections restent actifs.",
+  "defaults": {
+    "muteUnlisted": true,
+    "settleMs": 700,
+    "measurementInput": 5,
+    "disabledFilters": [
+      "ESTACK_LOUDNESS"
+    ]
+  },
+  "steps": [
+    {
+      "id": "P01",
+      "name": "SUB SOLO C0",
+      "position": "C0 — sweet spot principal, capsule à hauteur d'oreille, orientation fixe vers le centre géométrique entre les deux têtes",
+      "instruction": "Place le micro en C0. Ne le bouge plus pendant P01 à P18.",
+      "activeWays": [
+        "SUB"
+      ],
+      "rew": {
+        "measurementName": "P01_SUB_SOLO_C0",
+        "startHz": 20,
+        "endHz": 20000,
+        "levelDbfs": -30,
+        "timingReference": true,
+        "notes": "Base complexe SUB. Le SUB DSP peut représenter plusieurs caissons physiques alimentés par la même voie; ils ne sont pas séparables temporellement sans sorties DSP indépendantes."
+      }
+    },
+    {
+      "id": "P02",
+      "name": "KICK SOLO C0",
+      "position": "C0 — sweet spot principal, capsule à hauteur d'oreille, orientation fixe vers le centre géométrique entre les deux têtes",
+      "instruction": "Micro immobile.",
+      "activeWays": [
+        "KICK"
+      ],
+      "rew": {
+        "measurementName": "P02_KICK_SOLO_C0",
+        "startHz": 20,
+        "endHz": 20000,
+        "levelDbfs": -30,
+        "timingReference": true,
+        "notes": "Base complexe KICK avec polarité/delay du baseline capturé."
+      }
+    },
+    {
+      "id": "P03",
+      "name": "MID L SOLO C0",
+      "position": "C0 — sweet spot principal, capsule à hauteur d'oreille, orientation fixe vers le centre géométrique entre les deux têtes",
+      "instruction": "Micro immobile.",
+      "activeWays": [
+        "MID_L"
+      ],
+      "rew": {
+        "measurementName": "P03_MID_L_SOLO_C0",
+        "startHz": 20,
+        "endHz": 20000,
+        "levelDbfs": -30,
+        "timingReference": true,
+        "notes": "Base complexe MID gauche avec XO/PEQ/protection actuels."
+      }
+    },
+    {
+      "id": "P04",
+      "name": "HIGH L SOLO C0",
+      "position": "C0 — sweet spot principal, capsule à hauteur d'oreille, orientation fixe vers le centre géométrique entre les deux têtes",
+      "instruction": "Micro immobile.",
+      "activeWays": [
+        "HIGH_L"
+      ],
+      "rew": {
+        "measurementName": "P04_HIGH_L_SOLO_C0",
+        "startHz": 20,
+        "endHz": 20000,
+        "levelDbfs": -30,
+        "timingReference": true,
+        "notes": "Base complexe HIGH gauche avec XO/PEQ/protection actuels."
+      }
+    },
+    {
+      "id": "P05",
+      "name": "MID R SOLO C0",
+      "position": "C0 — sweet spot principal, capsule à hauteur d'oreille, orientation fixe vers le centre géométrique entre les deux têtes",
+      "instruction": "Micro immobile.",
+      "activeWays": [
+        "MID_R"
+      ],
+      "rew": {
+        "measurementName": "P05_MID_R_SOLO_C0",
+        "startHz": 20,
+        "endHz": 20000,
+        "levelDbfs": -30,
+        "timingReference": true,
+        "notes": "Base complexe MID droit."
+      }
+    },
+    {
+      "id": "P06",
+      "name": "HIGH R SOLO C0",
+      "position": "C0 — sweet spot principal, capsule à hauteur d'oreille, orientation fixe vers le centre géométrique entre les deux têtes",
+      "instruction": "Micro immobile.",
+      "activeWays": [
+        "HIGH_R"
+      ],
+      "rew": {
+        "measurementName": "P06_HIGH_R_SOLO_C0",
+        "startHz": 20,
+        "endHz": 20000,
+        "levelDbfs": -30,
+        "timingReference": true,
+        "notes": "Base complexe HIGH droit."
+      }
+    },
+    {
+      "id": "P07",
+      "name": "MH L SUM C0",
+      "position": "C0 — sweet spot principal, capsule à hauteur d'oreille, orientation fixe vers le centre géométrique entre les deux têtes",
+      "instruction": "Micro immobile.",
+      "activeWays": [
+        "MID_L",
+        "HIGH_L"
+      ],
+      "rew": {
+        "measurementName": "P07_MH_L_SUM_C0",
+        "startHz": 20,
+        "endHz": 20000,
+        "levelDbfs": -30,
+        "timingReference": true,
+        "notes": "Ancre physique pour vérifier la reconstruction complexe MID/HIGH gauche."
+      }
+    },
+    {
+      "id": "P08",
+      "name": "MH L REV C0",
+      "position": "C0 — sweet spot principal, capsule à hauteur d'oreille, orientation fixe vers le centre géométrique entre les deux têtes",
+      "instruction": "Micro immobile.",
+      "activeWays": [
+        "MID_L",
+        "HIGH_L"
+      ],
+      "ways": {
+        "HIGH_L": {
+          "polarity": "inverted"
+        }
+      },
+      "rew": {
+        "measurementName": "P08_MH_L_REV_C0",
+        "startHz": 20,
+        "endHz": 20000,
+        "levelDbfs": -30,
+        "timingReference": true,
+        "notes": "Reverse-null MID/HIGH gauche. HIGH L est inversé uniquement dans cette étape."
+      }
+    },
+    {
+      "id": "P09",
+      "name": "MH R SUM C0",
+      "position": "C0 — sweet spot principal, capsule à hauteur d'oreille, orientation fixe vers le centre géométrique entre les deux têtes",
+      "instruction": "Micro immobile.",
+      "activeWays": [
+        "MID_R",
+        "HIGH_R"
+      ],
+      "rew": {
+        "measurementName": "P09_MH_R_SUM_C0",
+        "startHz": 20,
+        "endHz": 20000,
+        "levelDbfs": -30,
+        "timingReference": true,
+        "notes": "Ancre physique pour vérifier la reconstruction complexe MID/HIGH droite."
+      }
+    },
+    {
+      "id": "P10",
+      "name": "MH R REV C0",
+      "position": "C0 — sweet spot principal, capsule à hauteur d'oreille, orientation fixe vers le centre géométrique entre les deux têtes",
+      "instruction": "Micro immobile.",
+      "activeWays": [
+        "MID_R",
+        "HIGH_R"
+      ],
+      "ways": {
+        "HIGH_R": {
+          "polarity": "inverted"
+        }
+      },
+      "rew": {
+        "measurementName": "P10_MH_R_REV_C0",
+        "startHz": 20,
+        "endHz": 20000,
+        "levelDbfs": -30,
+        "timingReference": true,
+        "notes": "Reverse-null MID/HIGH droite. HIGH R est inversé uniquement dans cette étape."
+      }
+    },
+    {
+      "id": "P11",
+      "name": "KM L SUM C0",
+      "position": "C0 — sweet spot principal, capsule à hauteur d'oreille, orientation fixe vers le centre géométrique entre les deux têtes",
+      "instruction": "Micro immobile.",
+      "activeWays": [
+        "KICK",
+        "MID_L"
+      ],
+      "rew": {
+        "measurementName": "P11_KM_L_SUM_C0",
+        "startHz": 20,
+        "endHz": 20000,
+        "levelDbfs": -30,
+        "timingReference": true,
+        "notes": "Ancre physique KICK/MID gauche dans l'état baseline."
+      }
+    },
+    {
+      "id": "P12",
+      "name": "KM L REV C0",
+      "position": "C0 — sweet spot principal, capsule à hauteur d'oreille, orientation fixe vers le centre géométrique entre les deux têtes",
+      "instruction": "Micro immobile.",
+      "activeWays": [
+        "KICK",
+        "MID_L"
+      ],
+      "ways": {
+        "MID_L": {
+          "polarity": "inverted"
+        }
+      },
+      "rew": {
+        "measurementName": "P12_KM_L_REV_C0",
+        "startHz": 20,
+        "endHz": 20000,
+        "levelDbfs": -30,
+        "timingReference": true,
+        "notes": "Reverse-null KICK/MID gauche. Le KICK reste dans sa polarité baseline; MID L est basculé de 180° pour cette étape."
+      }
+    },
+    {
+      "id": "P13",
+      "name": "KM R SUM C0",
+      "position": "C0 — sweet spot principal, capsule à hauteur d'oreille, orientation fixe vers le centre géométrique entre les deux têtes",
+      "instruction": "Micro immobile.",
+      "activeWays": [
+        "KICK",
+        "MID_R"
+      ],
+      "rew": {
+        "measurementName": "P13_KM_R_SUM_C0",
+        "startHz": 20,
+        "endHz": 20000,
+        "levelDbfs": -30,
+        "timingReference": true,
+        "notes": "Ancre physique KICK/MID droit dans l'état baseline."
+      }
+    },
+    {
+      "id": "P14",
+      "name": "KM R REV C0",
+      "position": "C0 — sweet spot principal, capsule à hauteur d'oreille, orientation fixe vers le centre géométrique entre les deux têtes",
+      "instruction": "Micro immobile.",
+      "activeWays": [
+        "KICK",
+        "MID_R"
+      ],
+      "ways": {
+        "MID_R": {
+          "polarity": "inverted"
+        }
+      },
+      "rew": {
+        "measurementName": "P14_KM_R_REV_C0",
+        "startHz": 20,
+        "endHz": 20000,
+        "levelDbfs": -30,
+        "timingReference": true,
+        "notes": "Reverse-null KICK/MID droit."
+      }
+    },
+    {
+      "id": "P15",
+      "name": "SK SUM C0",
+      "position": "C0 — sweet spot principal, capsule à hauteur d'oreille, orientation fixe vers le centre géométrique entre les deux têtes",
+      "instruction": "Micro immobile.",
+      "activeWays": [
+        "SUB",
+        "KICK"
+      ],
+      "rew": {
+        "measurementName": "P15_SK_SUM_C0",
+        "startHz": 20,
+        "endHz": 20000,
+        "levelDbfs": -30,
+        "timingReference": true,
+        "notes": "Ancre physique SUB/KICK dans l'état baseline."
+      }
+    },
+    {
+      "id": "P16",
+      "name": "SK REV C0",
+      "position": "C0 — sweet spot principal, capsule à hauteur d'oreille, orientation fixe vers le centre géométrique entre les deux têtes",
+      "instruction": "Micro immobile.",
+      "activeWays": [
+        "SUB",
+        "KICK"
+      ],
+      "ways": {
+        "SUB": {
+          "polarity": "inverted"
+        }
+      },
+      "rew": {
+        "measurementName": "P16_SK_REV_C0",
+        "startHz": 20,
+        "endHz": 20000,
+        "levelDbfs": -30,
+        "timingReference": true,
+        "notes": "Reverse-null SUB/KICK. SUB est inversé uniquement pour cette étape."
+      }
+    },
+    {
+      "id": "P17",
+      "name": "PROGRAM L EMU C0",
+      "position": "C0 — sweet spot principal, capsule à hauteur d'oreille, orientation fixe vers le centre géométrique entre les deux têtes",
+      "instruction": "Micro immobile.",
+      "activeWays": [
+        "SUB",
+        "KICK",
+        "MID_L",
+        "HIGH_L"
+      ],
+      "ways": {
+        "SUB": {
+          "gainOffsetDb": -6.0206
+        },
+        "KICK": {
+          "gainOffsetDb": -6.0206
+        }
+      },
+      "rew": {
+        "measurementName": "P17_PROGRAM_L_EMU_C0",
+        "startHz": 20,
+        "endHz": 20000,
+        "levelDbfs": -30,
+        "timingReference": true,
+        "notes": "Émule un signal programme uniquement sur le canal gauche: contribution mono SUB/KICK réduite de 6.0206 dB, top gauche au baseline."
+      }
+    },
+    {
+      "id": "P18",
+      "name": "PROGRAM R EMU C0",
+      "position": "C0 — sweet spot principal, capsule à hauteur d'oreille, orientation fixe vers le centre géométrique entre les deux têtes",
+      "instruction": "Micro immobile.",
+      "activeWays": [
+        "SUB",
+        "KICK",
+        "MID_R",
+        "HIGH_R"
+      ],
+      "ways": {
+        "SUB": {
+          "gainOffsetDb": -6.0206
+        },
+        "KICK": {
+          "gainOffsetDb": -6.0206
+        }
+      },
+      "rew": {
+        "measurementName": "P18_PROGRAM_R_EMU_C0",
+        "startHz": 20,
+        "endHz": 20000,
+        "levelDbfs": -30,
+        "timingReference": true,
+        "notes": "Émule un signal programme uniquement sur le canal droit."
+      }
+    },
+    {
+      "id": "P19",
+      "name": "SUB SOLO L20",
+      "position": "L20 — 20 cm à gauche de C0, même hauteur et même orientation",
+      "instruction": "Déplace le micro de 20 cm à gauche de C0. Garde hauteur et orientation strictement identiques.",
+      "activeWays": [
+        "SUB"
+      ],
+      "rew": {
+        "measurementName": "P19_SUB_SOLO_L20",
+        "startHz": 20,
+        "endHz": 20000,
+        "levelDbfs": -30,
+        "timingReference": true,
+        "notes": "Réponse complexe SUB à L20 pour optimisation spatiale."
+      }
+    },
+    {
+      "id": "P20",
+      "name": "KICK SOLO L20",
+      "position": "L20 — 20 cm à gauche de C0, même hauteur et même orientation",
+      "instruction": "Micro immobile.",
+      "activeWays": [
+        "KICK"
+      ],
+      "rew": {
+        "measurementName": "P20_KICK_SOLO_L20",
+        "startHz": 20,
+        "endHz": 20000,
+        "levelDbfs": -30,
+        "timingReference": true,
+        "notes": "Réponse complexe KICK à L20."
+      }
+    },
+    {
+      "id": "P21",
+      "name": "MID L SOLO L20",
+      "position": "L20 — 20 cm à gauche de C0, même hauteur et même orientation",
+      "instruction": "Micro immobile.",
+      "activeWays": [
+        "MID_L"
+      ],
+      "rew": {
+        "measurementName": "P21_MID_L_SOLO_L20",
+        "startHz": 20,
+        "endHz": 20000,
+        "levelDbfs": -30,
+        "timingReference": true,
+        "notes": "Réponse complexe MID gauche à L20."
+      }
+    },
+    {
+      "id": "P22",
+      "name": "HIGH L SOLO L20",
+      "position": "L20 — 20 cm à gauche de C0, même hauteur et même orientation",
+      "instruction": "Micro immobile.",
+      "activeWays": [
+        "HIGH_L"
+      ],
+      "rew": {
+        "measurementName": "P22_HIGH_L_SOLO_L20",
+        "startHz": 20,
+        "endHz": 20000,
+        "levelDbfs": -30,
+        "timingReference": true,
+        "notes": "Réponse complexe HIGH gauche à L20."
+      }
+    },
+    {
+      "id": "P23",
+      "name": "MID R SOLO L20",
+      "position": "L20 — 20 cm à gauche de C0, même hauteur et même orientation",
+      "instruction": "Micro immobile.",
+      "activeWays": [
+        "MID_R"
+      ],
+      "rew": {
+        "measurementName": "P23_MID_R_SOLO_L20",
+        "startHz": 20,
+        "endHz": 20000,
+        "levelDbfs": -30,
+        "timingReference": true,
+        "notes": "Réponse complexe MID droit à L20."
+      }
+    },
+    {
+      "id": "P24",
+      "name": "HIGH R SOLO L20",
+      "position": "L20 — 20 cm à gauche de C0, même hauteur et même orientation",
+      "instruction": "Micro immobile.",
+      "activeWays": [
+        "HIGH_R"
+      ],
+      "rew": {
+        "measurementName": "P24_HIGH_R_SOLO_L20",
+        "startHz": 20,
+        "endHz": 20000,
+        "levelDbfs": -30,
+        "timingReference": true,
+        "notes": "Réponse complexe HIGH droit à L20."
+      }
+    },
+    {
+      "id": "P25",
+      "name": "SUB SOLO R20",
+      "position": "R20 — 20 cm à droite de C0, même hauteur et même orientation",
+      "instruction": "Déplace le micro de 20 cm à droite de C0. Garde hauteur et orientation strictement identiques.",
+      "activeWays": [
+        "SUB"
+      ],
+      "rew": {
+        "measurementName": "P25_SUB_SOLO_R20",
+        "startHz": 20,
+        "endHz": 20000,
+        "levelDbfs": -30,
+        "timingReference": true,
+        "notes": "Réponse complexe SUB à R20 pour optimisation spatiale."
+      }
+    },
+    {
+      "id": "P26",
+      "name": "KICK SOLO R20",
+      "position": "R20 — 20 cm à droite de C0, même hauteur et même orientation",
+      "instruction": "Micro immobile.",
+      "activeWays": [
+        "KICK"
+      ],
+      "rew": {
+        "measurementName": "P26_KICK_SOLO_R20",
+        "startHz": 20,
+        "endHz": 20000,
+        "levelDbfs": -30,
+        "timingReference": true,
+        "notes": "Réponse complexe KICK à R20."
+      }
+    },
+    {
+      "id": "P27",
+      "name": "MID L SOLO R20",
+      "position": "R20 — 20 cm à droite de C0, même hauteur et même orientation",
+      "instruction": "Micro immobile.",
+      "activeWays": [
+        "MID_L"
+      ],
+      "rew": {
+        "measurementName": "P27_MID_L_SOLO_R20",
+        "startHz": 20,
+        "endHz": 20000,
+        "levelDbfs": -30,
+        "timingReference": true,
+        "notes": "Réponse complexe MID gauche à R20."
+      }
+    },
+    {
+      "id": "P28",
+      "name": "HIGH L SOLO R20",
+      "position": "R20 — 20 cm à droite de C0, même hauteur et même orientation",
+      "instruction": "Micro immobile.",
+      "activeWays": [
+        "HIGH_L"
+      ],
+      "rew": {
+        "measurementName": "P28_HIGH_L_SOLO_R20",
+        "startHz": 20,
+        "endHz": 20000,
+        "levelDbfs": -30,
+        "timingReference": true,
+        "notes": "Réponse complexe HIGH gauche à R20."
+      }
+    },
+    {
+      "id": "P29",
+      "name": "MID R SOLO R20",
+      "position": "R20 — 20 cm à droite de C0, même hauteur et même orientation",
+      "instruction": "Micro immobile.",
+      "activeWays": [
+        "MID_R"
+      ],
+      "rew": {
+        "measurementName": "P29_MID_R_SOLO_R20",
+        "startHz": 20,
+        "endHz": 20000,
+        "levelDbfs": -30,
+        "timingReference": true,
+        "notes": "Réponse complexe MID droit à R20."
+      }
+    },
+    {
+      "id": "P30",
+      "name": "HIGH R SOLO R20",
+      "position": "R20 — 20 cm à droite de C0, même hauteur et même orientation",
+      "instruction": "Micro immobile.",
+      "activeWays": [
+        "HIGH_R"
+      ],
+      "rew": {
+        "measurementName": "P30_HIGH_R_SOLO_R20",
+        "startHz": 20,
+        "endHz": 20000,
+        "levelDbfs": -30,
+        "timingReference": true,
+        "notes": "Réponse complexe HIGH droit à R20."
+      }
+    },
+    {
+      "id": "P31",
+      "name": "SUB SOLO F20",
+      "position": "F20 — 20 cm en avant de C0, même hauteur et même orientation",
+      "instruction": "Déplace le micro de 20 cm vers l'avant depuis C0. Garde hauteur et orientation strictement identiques.",
+      "activeWays": [
+        "SUB"
+      ],
+      "rew": {
+        "measurementName": "P31_SUB_SOLO_F20",
+        "startHz": 20,
+        "endHz": 20000,
+        "levelDbfs": -30,
+        "timingReference": true,
+        "notes": "Réponse complexe SUB à F20 pour optimisation spatiale."
+      }
+    },
+    {
+      "id": "P32",
+      "name": "KICK SOLO F20",
+      "position": "F20 — 20 cm en avant de C0, même hauteur et même orientation",
+      "instruction": "Micro immobile.",
+      "activeWays": [
+        "KICK"
+      ],
+      "rew": {
+        "measurementName": "P32_KICK_SOLO_F20",
+        "startHz": 20,
+        "endHz": 20000,
+        "levelDbfs": -30,
+        "timingReference": true,
+        "notes": "Réponse complexe KICK à F20."
+      }
+    },
+    {
+      "id": "P33",
+      "name": "MID L SOLO F20",
+      "position": "F20 — 20 cm en avant de C0, même hauteur et même orientation",
+      "instruction": "Micro immobile.",
+      "activeWays": [
+        "MID_L"
+      ],
+      "rew": {
+        "measurementName": "P33_MID_L_SOLO_F20",
+        "startHz": 20,
+        "endHz": 20000,
+        "levelDbfs": -30,
+        "timingReference": true,
+        "notes": "Réponse complexe MID gauche à F20."
+      }
+    },
+    {
+      "id": "P34",
+      "name": "HIGH L SOLO F20",
+      "position": "F20 — 20 cm en avant de C0, même hauteur et même orientation",
+      "instruction": "Micro immobile.",
+      "activeWays": [
+        "HIGH_L"
+      ],
+      "rew": {
+        "measurementName": "P34_HIGH_L_SOLO_F20",
+        "startHz": 20,
+        "endHz": 20000,
+        "levelDbfs": -30,
+        "timingReference": true,
+        "notes": "Réponse complexe HIGH gauche à F20."
+      }
+    },
+    {
+      "id": "P35",
+      "name": "MID R SOLO F20",
+      "position": "F20 — 20 cm en avant de C0, même hauteur et même orientation",
+      "instruction": "Micro immobile.",
+      "activeWays": [
+        "MID_R"
+      ],
+      "rew": {
+        "measurementName": "P35_MID_R_SOLO_F20",
+        "startHz": 20,
+        "endHz": 20000,
+        "levelDbfs": -30,
+        "timingReference": true,
+        "notes": "Réponse complexe MID droit à F20."
+      }
+    },
+    {
+      "id": "P36",
+      "name": "HIGH R SOLO F20",
+      "position": "F20 — 20 cm en avant de C0, même hauteur et même orientation",
+      "instruction": "Micro immobile.",
+      "activeWays": [
+        "HIGH_R"
+      ],
+      "rew": {
+        "measurementName": "P36_HIGH_R_SOLO_F20",
+        "startHz": 20,
+        "endHz": 20000,
+        "levelDbfs": -30,
+        "timingReference": true,
+        "notes": "Réponse complexe HIGH droit à F20."
+      }
+    },
+    {
+      "id": "P37",
+      "name": "SUB SOLO B20",
+      "position": "B20 — 20 cm en arrière de C0, même hauteur et même orientation",
+      "instruction": "Déplace le micro de 20 cm vers l'arrière depuis C0. Garde hauteur et orientation strictement identiques.",
+      "activeWays": [
+        "SUB"
+      ],
+      "rew": {
+        "measurementName": "P37_SUB_SOLO_B20",
+        "startHz": 20,
+        "endHz": 20000,
+        "levelDbfs": -30,
+        "timingReference": true,
+        "notes": "Réponse complexe SUB à B20 pour optimisation spatiale."
+      }
+    },
+    {
+      "id": "P38",
+      "name": "KICK SOLO B20",
+      "position": "B20 — 20 cm en arrière de C0, même hauteur et même orientation",
+      "instruction": "Micro immobile.",
+      "activeWays": [
+        "KICK"
+      ],
+      "rew": {
+        "measurementName": "P38_KICK_SOLO_B20",
+        "startHz": 20,
+        "endHz": 20000,
+        "levelDbfs": -30,
+        "timingReference": true,
+        "notes": "Réponse complexe KICK à B20."
+      }
+    },
+    {
+      "id": "P39",
+      "name": "MID L SOLO B20",
+      "position": "B20 — 20 cm en arrière de C0, même hauteur et même orientation",
+      "instruction": "Micro immobile.",
+      "activeWays": [
+        "MID_L"
+      ],
+      "rew": {
+        "measurementName": "P39_MID_L_SOLO_B20",
+        "startHz": 20,
+        "endHz": 20000,
+        "levelDbfs": -30,
+        "timingReference": true,
+        "notes": "Réponse complexe MID gauche à B20."
+      }
+    },
+    {
+      "id": "P40",
+      "name": "HIGH L SOLO B20",
+      "position": "B20 — 20 cm en arrière de C0, même hauteur et même orientation",
+      "instruction": "Micro immobile.",
+      "activeWays": [
+        "HIGH_L"
+      ],
+      "rew": {
+        "measurementName": "P40_HIGH_L_SOLO_B20",
+        "startHz": 20,
+        "endHz": 20000,
+        "levelDbfs": -30,
+        "timingReference": true,
+        "notes": "Réponse complexe HIGH gauche à B20."
+      }
+    },
+    {
+      "id": "P41",
+      "name": "MID R SOLO B20",
+      "position": "B20 — 20 cm en arrière de C0, même hauteur et même orientation",
+      "instruction": "Micro immobile.",
+      "activeWays": [
+        "MID_R"
+      ],
+      "rew": {
+        "measurementName": "P41_MID_R_SOLO_B20",
+        "startHz": 20,
+        "endHz": 20000,
+        "levelDbfs": -30,
+        "timingReference": true,
+        "notes": "Réponse complexe MID droit à B20."
+      }
+    },
+    {
+      "id": "P42",
+      "name": "HIGH R SOLO B20",
+      "position": "B20 — 20 cm en arrière de C0, même hauteur et même orientation",
+      "instruction": "Micro immobile.",
+      "activeWays": [
+        "HIGH_R"
+      ],
+      "rew": {
+        "measurementName": "P42_HIGH_R_SOLO_B20",
+        "startHz": 20,
+        "endHz": 20000,
+        "levelDbfs": -30,
+        "timingReference": true,
+        "notes": "Réponse complexe HIGH droit à B20."
+      }
+    }
+  ]
+}
