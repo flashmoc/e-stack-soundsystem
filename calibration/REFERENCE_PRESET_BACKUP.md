@@ -96,8 +96,9 @@ Normal programme:
 - MID/HIGH stereo
 
 Imported Measurement Batch:
-- current project JSONs use `measurementInput: 5`
-- actual physical REW cabling must be checked before execution
+- current REW cable: **physical IN3**
+- CamillaDSP zero-based source: **IN2 / channel 2**
+- JSON: **`measurementInput: 3`**
 
 ## 8. Measurement reference
 
