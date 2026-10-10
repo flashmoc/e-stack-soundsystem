@@ -2,7 +2,7 @@
   "schema": "estack.measurement-batch",
   "version": 1,
   "name": "Stereo level match — 6 solo ways",
-  "description": "Six-way level-matching acquisition at the main listening position using the current live Stereo-LR-balanced-L-PAD baseline. Measures each DSP way alone with the same REW level and timing reference. No input-processing filter is disabled because the supplied live configuration has no active pre-mixer Loudness/Global EQ stage. Crossovers, per-way PEQ, delays, polarity and protections remain active. No gain changes are applied by the batch.",
+  "description": "Six-way level-matching acquisition at the main listening position. Required starting baseline: Stereo-LR-balanced-L-PAD export 2026-10-10T18:58:49.858Z, config revision 3b3d5f8e04576343db5a63b3a549f19dd92db640ee3955145d99aaed9e16631f. Measures each DSP way alone with the same REW level and timing reference. No input-processing filter is disabled because this live configuration has no active pre-mixer Loudness/Global EQ stage. Crossovers, per-way PEQ, delays, polarity and protections remain active. No gain changes are applied by the batch.",
   "defaults": {
     "muteUnlisted": true,
     "settleMs": 700,
