@@ -23,7 +23,9 @@ Measurement Batch documentation sync (no DSP/audio preset changes):
 - recorded **Measure current system** using physical **IN3**, new live capture each run, mixer source at 0 dB, preserved output gains/mutes, input processing and Loudness;
 - recorded **imported calibration JSON** as a single baseline for multiple steps, relative negative gain offsets, selected ways unmuted, Loudness/Input Trim forced off, optional measurement input (historical E-Stack campaign path IN5);
 - documented the −60 dB Master transition, actual-DSP diagnostics, automatic restore and the difference between an output gain of −60 dB and true mute;
-- physical REW cabling remains a hardware fact to verify before campaigns.
+- corrected current REW routing: **CamillaDSP zero-based IN2/channel 2 = physical IN3**;
+- corrected all active project Measurement Batch JSONs to **`measurementInput: 3`**;
+- the older physical IN5 / logical IN4 campaign note is superseded.
 
 ## 2026-09-08
 
