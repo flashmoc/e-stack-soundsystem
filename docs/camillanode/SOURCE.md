@@ -19,7 +19,7 @@ The mirrored files are intentionally kept under `docs/camillanode/` so they do n
 | `docs/dsp-safety.md` | `docs/camillanode/dsp-safety.md` | `02bf1113202fd940639267724dd6add98d79f631` |
 | `docs/estack-dsp-architecture.md` | `docs/camillanode/estack-dsp-architecture.md` | `d463dda5cdae9965ed28f5e2784534abec7136a7` |
 | `docs/estack-dsp-product.md` | `docs/camillanode/estack-dsp-product.md` | `ba4226ab409303c412fdafb945e99b999504e62a` |
-| `docs/measurement-batch.md` | `docs/camillanode/measurement-batch.md` | `d52a1dc2f4fff8b67d969f6cf46d5054e62e2ba8` |
+| `docs/measurement-batch.md` (**resynchronisé depuis `flashmoc/e-stack-dsp`, branche `main`, 2026-10-10**) | `docs/camillanode/measurement-batch.md` | `917dbd78d60d818e71c24c788ce405fe4a450f61` |
 | `docs/persistence.md` | `docs/camillanode/persistence.md` | `b17a0a33ac19db96260da105a4c7232fb3a0b93a` |
 | `docs/raspberry.md` | `docs/camillanode/raspberry.md` | `07dead708752b0182c5794bf6631707d178136e9` |
 | `docs/runtime-contracts.md` | `docs/camillanode/runtime-contracts.md` | `73e3ab622b84c313d54ef32e2d700fa565ebda73` |
@@ -30,21 +30,15 @@ Supporting Measurement Batch examples were also copied from the CamillaNode repo
 
 ## Authority / update rule
 
-- `camillaNode-EStack` remains the implementation source for CamillaNode code and its runtime/API contracts.
+- `camillaNode-EStack` remains the historical source for the other mirrored CamillaNode documentation and runtime/API contracts.
+- **Exception explicite (2026-10-10):** `docs/camillanode/measurement-batch.md` is now synchronized from `flashmoc/e-stack-dsp` at `docs/measurement-batch.md` (source blob SHA in the table), with a separate top-of-file E-Stack SoundSystem cabling note. The `e-stack-dsp` repository contains the currently verified dual-mode Measurement Batch implementation. The original 2026-09-08 mirror source/branch metadata continues to describe the **other** files in this directory.
 - `e-stack-soundsystem` is the central project/system/calibration source of truth and contains a mirrored copy of the CamillaNode documentation so a new assistant can work from one repository.
 - If CamillaNode code or its docs change, re-sync this mirror and update the source SHAs above.
 - Never silently edit a mirrored file to make it match the current hardware. Put E-Stack-specific differences in the system repo's own documentation instead.
 
-## Current E-Stack measurement-input override
+## E-Stack measurement inputs: distinguish the modes
 
-The mirrored Measurement Batch documentation uses `measurementInput: 4` as an example for **physical IN4**. The current E-Stack system documentation records the REW path as:
-
-`physical IN5 → ALSA CH4 → Camilla logical IN4`
-
-Because Measurement Batch physical input numbering is one-based, batches generated for the current system should therefore use:
-
-```json
-"measurementInput": 5
-```
-
-unless the hardware routing is changed and documented later.
+- **Measure current system / live snapshot:** the server always routes **physical IN3** to OUT1…OUT6 at 0 dB mixer-source gain. This is independent of `defaults.measurementInput` in any saved JSON. The REW interface must actually feed physical IN3 for this shortcut to produce a valid sweep.
+- **Imported JSON campaign / calibration:** optional `defaults.measurementInput` chooses the physical input. The last documented E-Stack REW connection for these campaigns was **physical IN5 → ALSA CH4 (zero-based) → Camilla logical IN4**, requiring `"measurementInput": 5`. This old hardware connection must be verified if the interface cable was moved.
+- **No unconditional global input number:** physical IN3 is fixed by current-system mode; physical IN5 is a recorded campaign wiring choice, not the fixed input of every mode.
+- **Baseline policies differ:** the calibration campaign forces Loudness and Input Trim off; current-system mode preserves both, along with the selected ways' existing gains/mutes.
