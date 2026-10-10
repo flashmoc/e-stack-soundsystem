@@ -2,6 +2,13 @@
 
 ## 2026-10-10
 
+Measurement Batch documentation sync (no DSP/audio preset changes):
+- synchronized `docs/camillanode/measurement-batch.md` with the dual-mode behavior verified in `flashmoc/e-stack-dsp`;
+- recorded **Measure current system** using physical **IN3**, new live capture each run, mixer source at 0 dB, preserved output gains/mutes, input processing and Loudness;
+- recorded **imported calibration JSON** as a single baseline for multiple steps, relative negative gain offsets, selected ways unmuted, Loudness/Input Trim forced off, optional measurement input (historical E-Stack campaign path IN5);
+- documented the −60 dB Master transition, actual-DSP diagnostics, automatic restore and the difference between an output gain of −60 dB and true mute;
+- flagged physical REW cabling IN3 versus historical IN5 for verification; updated central protocol, reference notes, system architecture and documentation provenance.
+
 Live baseline sync from user export `Stereo-LR-balanced-L-PAD`:
 - MASTER -9.0 dB;
 - SUB -7.3 dB;
