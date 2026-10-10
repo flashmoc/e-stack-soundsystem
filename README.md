@@ -8,7 +8,7 @@ Référentiel technique central du projet **E-Stack SoundSystem** : calibration 
 - `CURRENT_REFERENCE.md` : état validé à consulter en premier.
 - `calibration/SKILL.md` : méthode de calage et règles d’ingénierie.
 - `calibration/ESTACK_CURRENT_STATE.md` : état de travail courant.
-- `calibration/MEASUREMENT_PROTOCOL.md` : protocole pratique REW/Camilla.
+- `calibration/MEASUREMENT_PROTOCOL.md` : protocole pratique REW/Camilla, avec choix entre campagne JSON et mesure du système actuel (**IN3**).
 - `calibration/REFERENCE_PRESET_BACKUP.md` : snapshot de reconstruction du preset.
 - `calibration/CHANGELOG.md` : historique des évolutions.
 - `camilladsp/` : configurations DSP de référence et de mesure.
@@ -16,7 +16,7 @@ Référentiel technique central du projet **E-Stack SoundSystem** : calibration 
 - `simulations/` : optimisation numérique des crossovers, phase et directivité.
 - `docs/system-architecture.md` : chaîne de signal du système réel.
 - `docs/limiters-and-amplifiers.md` : gains ampli, limites HP et protections connues.
-- `docs/camillanode/` : miroir de la documentation technique du repo `flashmoc/camillaNode-EStack`, incluant architecture, runtime contracts, sécurité DSP, persistence, Raspberry, Control et Measurement Batch.
+- `docs/camillanode/` : documentation miroir, historiquement issue de `flashmoc/camillaNode-EStack` ; la référence **Measurement Batch** a été resynchronisée depuis l'implémentation actuelle `flashmoc/e-stack-dsp` (provenance dans `SOURCE.md`).
 
 ## Documentation CamillaNode centralisée
 
@@ -36,4 +36,4 @@ Les exemples JSON du runner sont dans `measurements/batch-examples/`.
 
 La branche `main` doit représenter uniquement l’état **validé** ou explicitement documenté comme état de travail courant. Les essais d’architecture importants doivent être isolés dans des branches dédiées avant fusion.
 
-Les fichiers sous `docs/camillanode/` sont un miroir : lorsqu’un contrat ou une documentation CamillaNode évolue, il faut les re-synchroniser et mettre à jour `docs/camillanode/SOURCE.md`.
+Les fichiers sous `docs/camillanode/` sont des miroirs à provenance tracée : toute resynchronisation doit mettre à jour `docs/camillanode/SOURCE.md`. **Ne pas confondre `Measure current system` (IN3 forcé) et les campagnes JSON (entrée physique configurable, dernier câblage connu IN5).**
