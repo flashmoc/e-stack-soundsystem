@@ -2,14 +2,12 @@
   "schema": "estack.measurement-batch",
   "version": 1,
   "name": "Stereo level match — 6 solo ways",
-  "description": "Six-way level-matching acquisition at the main listening position. Measures each DSP way alone with the same REW level and timing reference. Loudness is disabled; the live baseline crossovers, per-way PEQ, delays, polarity and protections remain active. No gain changes are applied by the batch.",
+  "description": "Six-way level-matching acquisition at the main listening position using the current live Stereo-LR-balanced-L-PAD baseline. Measures each DSP way alone with the same REW level and timing reference. No input-processing filter is disabled because the supplied live configuration has no active pre-mixer Loudness/Global EQ stage. Crossovers, per-way PEQ, delays, polarity and protections remain active. No gain changes are applied by the batch.",
   "defaults": {
     "muteUnlisted": true,
     "settleMs": 700,
     "measurementInput": 5,
-    "disabledFilters": [
-      "ESTACK_LOUDNESS"
-    ]
+    "disabledFilters": []
   },
   "steps": [
     {
@@ -43,7 +41,7 @@
         "endHz": 20000,
         "levelDbfs": -30,
         "timingReference": true,
-        "notes": "Level-match acquisition. KICK uses the captured baseline gain/polarity/delay."
+        "notes": "Level-match acquisition. KICK uses the captured live baseline gain/polarity/delay."
       }
     },
     {
