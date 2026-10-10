@@ -2,27 +2,27 @@
 
 ## Status
 
-**WORKING / LIVE BASELINE — not yet final calibration.**
+**WORKING / LOCKED BASELINE FOR NEXT CALIBRATION PASSES — not yet final calibration.**
 
-Source: live system export supplied on **2026-10-10**, title `Stereo-LR-balanced-L-PAD`.
+Authoritative source from now on:
+- live export timestamp: **2026-10-10T18:58:49.858Z**
+- title: `Stereo-LR-balanced-L-PAD`
+- config revision: `3b3d5f8e04576343db5a63b3a549f19dd92db640ee3955145d99aaed9e16631f`
+- acoustic reference supplied in the same handoff: `oct. 10 20_57_36.mdat`
 
-This live export supersedes older manually transcribed gain/delay values when they differ.
+This pair supersedes all earlier gain/delay/level references when they differ.
 
 ## Master and way gains
 
 - MASTER: **-9.0 dB**
 - SUB: **-7.3 dB**
 - KICK: **-18.4 dB**
-- MID L: **-0.6 dB**
-- MID R: **+0.6 dB**
-- HIGH L: **-3.5 dB**
-- HIGH R: **-1.8 dB**
+- MID L: **0.0 dB**
+- MID R: **0.0 dB**
+- HIGH L: **-4.0 dB**
+- HIGH R: **-4.0 dB**
 
-Current L/R offsets:
-- MID R is **+1.2 dB** relative to MID L
-- HIGH R is **+1.7 dB** relative to HIGH L
-
-These are the current deployment gains, not yet the final level-match result.
+There is therefore **no current DSP L/R gain offset** on MID or HIGH in this locked baseline.
 
 ## Polarities
 
@@ -44,7 +44,7 @@ Relative baseline:
 - HIGH is **+1.420 ms** later than KICK
 - KICK is **+1.300 ms** later than SUB
 
-These values are current working values; final delay/phase optimisation is still pending.
+These are the locked starting values for optimisation, not yet the final phase-optimal solution.
 
 ## Crossovers
 
@@ -54,6 +54,12 @@ These values are current working values; final delay/phase optimisation is still
 - HIGH L/R: HPF **2000 Hz LR24**
 
 ## Per-way PEQ
+
+SUB:
+- no per-way PEQ in the active output stage
+
+KICK:
+- no per-way PEQ in the active output stage
 
 MID L/R:
 - PK **1350 Hz / -5.0 dB / Q 1.02**
@@ -68,21 +74,19 @@ HIGH R:
 - PK **4600 Hz / -4.0 dB / Q 0.70**
 - High-shelf **7763 Hz / +5.7 dB / Q 1**
 
+Important: HIGH L/R are not filter-identical because the 4600 Hz Q differs.
+
 ## Input / Global EQ state
 
-The current live export contains Global PEQ/GEQ filter definitions, but the stored `ESTACK_INPUT_EQ_STATE` reports:
-
+The live export contains Global PEQ/GEQ filter definitions, but `ESTACK_INPUT_EQ_STATE` reports:
 - GEQ: **disabled**
 - PEQ: **disabled**
 
-The live pipeline starts at mixer `estack_preview`; no Global EQ or Loudness filter stage is active before the mixer in this export.
-
-Therefore calibration batches must not assume `ESTACK_LOUDNESS` exists in the live baseline.
+The active pipeline begins at mixer `estack_preview`; no Global EQ or Loudness filter stage is active before the mixer in this export.
 
 ## Routing
 
 Mixer `estack_preview`:
-
 - OUT0 SUB: IN0 + IN1, each **-6.0206 dB**
 - OUT1 KICK: IN0 + IN1, each **-6.0206 dB**
 - OUT2 MID L: IN0 at 0 dB
@@ -91,13 +95,10 @@ Mixer `estack_preview`:
 - OUT5 HIGH R: IN1 at 0 dB
 - OUT6/7 spare
 
-Measurement source currently documented:
-- physical **IN5**
-- ALSA zero-based **CH4**
-- Camilla logical **IN4**
-- Imported Measurement Batch campaign (last documented REW cabling): `measurementInput: 5`
-
-**Mode distinction (2026-10-10):** the separate **Measure current system** shortcut does **not** use the above imported-campaign input. It always routes **physical IN3** (CamillaDSP source channel 2) at 0 dB mixer-source gain while preserving selected ways' captured output gains and mute flags, Input Trim, Loudness, filters and protections. The historical physical IN5 connection for imported batches must be checked on the actual hardware before reusing the existing JSON campaign. Do not infer current cable position from this DSP export.
+Measurement-input note:
+- imported JSON campaigns still use the project wiring convention recorded in their JSON (currently `measurementInput: 5`);
+- the DSP export itself does not prove the physical REW cable location;
+- verify actual hardware cabling before starting a campaign.
 
 ## Protection
 
@@ -113,23 +114,15 @@ Compressors:
 - MID L/R: **-6.1 dB**, 2 ms / 200 ms / 20:1
 - HIGH L/R: **-6.1 dB**, 1 ms / 150 ms / 20:1
 
-Protection thresholds are present in the live export, but amplifier calibration comments still mark some assumptions/provisional validation requirements.
+## Calibration sequence from this baseline
 
-## Calibration status
+1. six-way solo level match at C0;
+2. MID/HIGH phase/delay optimisation L and R;
+3. KICK ↔ stereo TOP compromise;
+4. SUB ↔ KICK optimisation;
+5. physical SUM/REV verification;
+6. multi-position robustness;
+7. final room/system target EQ;
+8. final reference export.
 
-Known live baseline:
-- current gains and L/R balance captured
-- absolute SUB/KICK delays captured
-- all current polarities captured
-- crossover/PEQ/protection topology captured
-
-To finish:
-- six-way solo level match at C0
-- final MID/HIGH phase/delay optimisation L and R
-- final KICK ↔ stereo TOP compromise
-- final SUB ↔ KICK optimisation
-- physical SUM/REV verification
-- spatial robustness
-- final room/system target EQ
-- directivity / distortion / headroom checks
-- final reference export
+Do not use an older chat value or older repo snapshot in place of this locked baseline unless the user explicitly changes the live system again.
