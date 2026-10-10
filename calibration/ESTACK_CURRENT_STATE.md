@@ -1,11 +1,15 @@
 # E-Stack — Current State
 
-## Source
+## Authoritative baseline
 
 Latest live DSP export supplied **2026-10-10**:
+- exportedAt: **2026-10-10T18:58:49.858Z**
+- config revision: `3b3d5f8e04576343db5a63b3a549f19dd92db640ee3955145d99aaed9e16631f`
 - title: `Stereo-LR-balanced-L-PAD`
-- sample rate: **48 kHz**
-- current status: **WORKING / live baseline**, not final calibration
+- associated acoustic reference: `oct. 10 20_57_36.mdat`
+- status: **WORKING / LOCKED BASELINE**, not final calibration
+
+This state supersedes earlier 2026-10-10 exports if values differ.
 
 ## Architecture
 
@@ -15,6 +19,7 @@ Latest live DSP export supplied **2026-10-10**:
 - REW with hardware timing loopback
 - Komplete Audio 1
 - ECM8000
+- sample rate: **48 kHz**
 
 ## Mapping
 
@@ -26,26 +31,17 @@ Latest live DSP export supplied **2026-10-10**:
 - OUT5 = HIGH R
 - OUT6/7 = spare
 
-## REW measurement source
-
-- physical input: IN5
-- ALSA zero-based: CH4
-- Camilla logical: IN4
-- for an **imported calibration JSON**, the last recorded wiring corresponds to `measurementInput: 5`
-
-**Separate current-system shortcut:** `MEASURE NOW` always routes **physical IN3** (CamillaDSP source channel 2), keeps selected ways' current gain/mute, Input Trim/Loudness and all existing filters/protections, and captures a new baseline on each start. The earlier physical IN5 record remains a *historical campaign wiring note*, not the hardcoded input of current-system mode. Verify the real audio cable/channel map before a measurement; do not treat the physical input currently used as independently verified by the preset export.
-
 ## Current master / gains
 
 - MASTER = **-9.0 dB**
 - SUB = **-7.3 dB**
 - KICK = **-18.4 dB**
-- MID L = **-0.6 dB**
-- MID R = **+0.6 dB**
-- HIGH L = **-3.5 dB**
-- HIGH R = **-1.8 dB**
+- MID L = **0.0 dB**
+- MID R = **0.0 dB**
+- HIGH L = **-4.0 dB**
+- HIGH R = **-4.0 dB**
 
-The stereo deployment currently contains deliberate L/R gain offsets. Do not collapse L/R to a common gain before analysing the six solo measurements.
+No current DSP L/R level offset on MID/HIGH.
 
 ## Current polarity
 
@@ -61,7 +57,7 @@ The stereo deployment currently contains deliberate L/R gain offsets. Do not col
 - MID L/R = **2.760 ms**
 - HIGH L/R = **2.720 ms**
 
-These are not yet considered phase-optimal.
+These remain optimisation starting points.
 
 ## Current crossovers
 
@@ -82,6 +78,12 @@ HIGH L/R:
 
 ## Per-way EQ
 
+SUB:
+- none in active output stage
+
+KICK:
+- none in active output stage
+
 MID L/R:
 - 1350 Hz / -5 dB / Q 1.02
 
@@ -97,18 +99,24 @@ HIGH R:
 
 ## Input / Global EQ
 
-The live configuration contains definitions for Global PEQ and fitted GEQ filters, but `ESTACK_INPUT_EQ_STATE` reports both sections disabled.
+The live configuration contains Global PEQ and fitted GEQ filter definitions, but `ESTACK_INPUT_EQ_STATE` reports both sections disabled.
 
-The active pipeline begins directly with:
+Active pipeline begins directly with:
 `Mixer estack_preview → per-way processing → protection → hard limiters`
 
-No active pre-mixer Loudness stage is present in this live export.
+No active pre-mixer Loudness stage is present in the supplied export.
 
 ## Mixer
 
 Programme IN0/IN1:
 - SUB/KICK mono sum: each source -6.0206 dB
 - MID/HIGH stereo at 0 dB
+
+## Measurement input
+
+The preset export does not encode which physical socket currently carries the REW cable.
+
+Imported batch JSONs currently specify `measurementInput: 5`; verify the physical cable before use. Do not infer cable position from this DSP export.
 
 ## Protection
 
@@ -127,10 +135,10 @@ Compression:
 ## Current calibration work
 
 Immediate sequence:
-1. measure six solo ways at C0 without changing current gains;
-2. derive true level balance and L/R offsets;
+1. six solo ways at C0 with this baseline unchanged;
+2. derive level balance;
 3. finish delay / phase optimisation;
-4. verify SUM/REV physically;
-5. only then optimise room/system EQ and target.
+4. validate SUM/REV physically;
+5. optimise room/system EQ only afterwards.
 
-Do not use an old reference gain table in place of this live export.
+Any future recommendation must be referenced back to config revision `3b3d5f8e...` unless a newer live export is supplied.
