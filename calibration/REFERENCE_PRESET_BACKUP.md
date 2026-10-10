@@ -1,18 +1,22 @@
 # E-Stack — Reference Preset Backup
 
-Ce document est le snapshot de reconstruction du preset actuellement utilisé comme base de calibration.
+## Status
 
-## 1. Gains
+This file now records the **2026-10-10 live working baseline** `Stereo-LR-balanced-L-PAD`.
 
-- MASTER: -12.0 dB
-- SUB: -9.5 dB
-- KICK: -19.3 dB
-- MID L: -14.0 dB
-- MID R: -14.0 dB
-- HIGH L: -7.6 dB
-- HIGH R: -7.6 dB
+It is reconstructible at the parameter level but is **not yet the final calibrated REFERENCE**.
 
-## 2. Polarités
+## 1. Master / Gains
+
+- MASTER: -9.0 dB
+- SUB: -7.3 dB
+- KICK: -18.4 dB
+- MID L: -0.6 dB
+- MID R: +0.6 dB
+- HIGH L: -3.5 dB
+- HIGH R: -1.8 dB
+
+## 2. Polarities
 
 - SUB: NORMAL
 - KICK: INVERTED
@@ -23,21 +27,17 @@ Ce document est le snapshot de reconstruction du preset actuellement utilisé co
 
 ## 3. Delays
 
+- SUB: 0.000 ms, subsample true
+- KICK: 1.300 ms
 - MID L: 2.760 ms
 - MID R: 2.760 ms
 - HIGH L: 2.720 ms
 - HIGH R: 2.720 ms
 
-À compléter :
-- SUB delay absolu
-- KICK delay absolu
-
-Ne pas inventer ces deux valeurs.
-
 ## 4. Crossovers
 
 SUB:
-- HPF 40 Hz BW24
+- HPF 40 Hz Butterworth order 4
 - LPF 130 Hz LR24
 
 KICK:
@@ -51,39 +51,30 @@ MID L/R:
 HIGH L/R:
 - HPF 2000 Hz LR24
 
-## 5. PEQ de voie
+## 5. Per-way EQ
 
 MID L/R:
 - PK 1350 Hz
 - -5.0 dB
-- Q 1.0
+- Q 1.02
 
-HIGH L/R:
-- PK 2850 Hz
-- -2.5 dB
-- Q 2.0
+HIGH L:
+- PK 2850 Hz / -2.5 dB / Q 1.96
+- PK 4600 Hz / -4.0 dB / Q 1.03
+- HS 7763 Hz / +5.7 dB / Q 1
 
-HIGH L/R:
-- PK 4600 Hz
-- -4.0 dB
-- Q 1.0
+HIGH R:
+- PK 2850 Hz / -2.5 dB / Q 1.96
+- PK 4600 Hz / -4.0 dB / Q 0.70
+- HS 7763 Hz / +5.7 dB / Q 1
 
-## 6. System EQ
+## 6. Global/Input EQ active state
 
-État actuel observé :
-- PK/BELL 162 Hz
-- -4.0 dB
-- Q 0.70
+The live export keeps Global EQ/GEQ filter definitions but the E-Stack state marker reports:
+- GEQ disabled
+- PEQ disabled
 
-Placement observé :
-- Input Processing
-- shared Input L/R
-- pre-routing
-
-Action prévue :
-- déplacer le System EQ après `estack_preview`
-- avant les crossovers/per-way processing
-- afin que musique et REW traversent la même correction
+No active pre-mixer Global EQ/Loudness stage appears in the supplied live pipeline.
 
 ## 7. Routing
 
@@ -96,51 +87,43 @@ Outputs:
 - 5 HIGH R
 - 6/7 spare
 
-REW:
-- logical IN4
-- 0 dB vers les voies mesurées
-
-Normal source:
+Normal programme:
 - IN0/IN1
-- SUB/KICK mono sum avec -6.0206 dB par source
-- MID/HIGH stéréo
+- SUB/KICK L+R sum, each source -6.0206 dB
+- MID/HIGH stereo
 
-## 8. Mesure
+REW:
+- physical IN5
+- ALSA CH4
+- Camilla logical IN4
+- Measurement Batch input 5
+
+## 8. Measurement reference
 
 - sample rate: 48 kHz
-- REW timing reference: loopback
-- Komplete Audio 1
+- native NI ASIO
+- hardware timing loopback
 - ECM8000
-- source REW actuelle: IN4 Camilla
+- Komplete Audio 1
 
-## 9. État normal actuel
+## 9. Amplifiers and protection
 
-Quand aucune mesure reverse n'est en cours :
-- SUB NORMAL
-- KICK INVERTED
-- MID NORMAL
-- HIGH NORMAL
+| Way | Hard limiter | Compressor | Attack | Release | Ratio |
+|---|---:|---:|---:|---:|---:|
+| SUB | -12.6 dBFS | -13.6 dB | 10 ms | 500 ms | 20:1 |
+| KICK | -15.8 dBFS | -16.8 dB | 5 ms | 300 ms | 20:1 |
+| MID L/R | -5.1 dBFS | -6.1 dB | 2 ms | 200 ms | 20:1 |
+| HIGH L/R | -5.1 dBFS | -6.1 dB | 1 ms | 150 ms | 20:1 |
 
-## 10. Amplificateurs et limiteurs
+Amplifier calibration reference remains documented in `docs/limiters-and-amplifiers.md`.
 
-Source utilisateur datée du 30/08/2026.
+## 10. Remaining calibration
 
-| Voie | Ampli | Réglage ampli | Gain mesuré | Limite HP | Équiv. puissance | Hard Limiter Camilla | Compresseur | Attack | Release | Ratio |
-|---|---|---|---:|---:|---:|---:|---:|---:|---:|---:|
-| SUB | t.amp E1200 | Potard max | 40.1 dB | 50.0 Vrms | 625 W @ 4 Ω total | -12.6 dBFS | -13.6 dB | 10 ms | 500 ms | 20:1 |
-| KICK | t.amp E1200 | Potard max | 40.1 dB | 34.6 Vrms | 300 W @ 4 Ω | -15.8 dBFS | -16.8 dB | 5 ms | 300 ms | 20:1 |
-| MID L | t.amp E400 | 26 dB, potard max | 26.7 dB | 25.3 Vrms | 80 W @ 8 Ω | -5.1 dBFS | -6.1 dB | 2 ms | 200 ms | 20:1 |
-| MID R | t.amp E400 | 26 dB, potard max | 26.7 dB | 25.3 Vrms | 80 W @ 8 Ω | -5.1 dBFS | -6.1 dB | 2 ms | 200 ms | 20:1 |
-| HIGH L | ampli HIGH/Fosi | Potard réduit | 19.9 dB | 11.5 Vrms | ≈16.5 W @ 8 Ω | -5.1 dBFS | -6.1 dB | 1 ms | 150 ms | 20:1 |
-| HIGH R | ampli HIGH/Fosi | même position | ≈19.9 dB* | 11.5 Vrms | ≈16.5 W @ 8 Ω | -5.1 dBFS | -6.1 dB | 1 ms | 150 ms | 20:1 |
-
-Voir aussi `docs/limiters-and-amplifiers.md` pour les remarques de traçabilité.
-
-## 11. Éléments encore à sauvegarder
-
-Avant de considérer ce backup comme définitif :
-- valeur absolue delay SUB
-- valeur absolue delay KICK
-- comparer les hard limiters et compresseurs ci-dessus avec le YAML réellement chargé
-- autres protections / hard limits éventuellement présentes dans la pipeline
-- YAML final exporté
+- six-way level match at C0
+- MID/HIGH final delay/phase
+- KICK/TOP final delay/phase
+- SUB/KICK final delay/phase
+- SUM/REV final validation
+- room/system target EQ
+- spatial validation
+- final reference export
