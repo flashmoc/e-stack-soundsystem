@@ -36,4 +36,4 @@ Les exemples JSON du runner sont dans `measurements/batch-examples/`.
 
 La branche `main` doit représenter uniquement l’état **validé** ou explicitement documenté comme état de travail courant. Les essais d’architecture importants doivent être isolés dans des branches dédiées avant fusion.
 
-Les fichiers sous `docs/camillanode/` sont des miroirs à provenance tracée : toute resynchronisation doit mettre à jour `docs/camillanode/SOURCE.md`. **Ne pas confondre `Measure current system` (IN3 forcé) et les campagnes JSON (entrée physique configurable, dernier câblage connu IN5).**
+Les fichiers sous `docs/camillanode/` sont des miroirs à provenance tracée : toute resynchronisation doit mettre à jour `docs/camillanode/SOURCE.md`. **Le câblage REW actuel est physical IN3 dans les DEUX modes.** `Measure current system` route IN3 automatiquement ; les campagnes JSON E-Stack utilisent `defaults.measurementInput: 3` pour cette même prise. L'ancien IN5 est obsolète. Les deux modes diffèrent dans la capture, les gains, les mutes, Loudness et Input Trim.
