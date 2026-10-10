@@ -17,7 +17,7 @@
 
 **Pour une mesure rapide avec le preset courant**, connecter effectivement la sortie de la carte son REW à **physical IN3**, choisir les voies dans **Measure current system**, puis cliquer **MEASURE NOW**. Le fait de régler une voie à **−60 dB n'est pas un mute** : la désélectionner, ou la muter **avant** la capture, pour l'exclure complètement. Un nouveau clic après FINISH/ABORT capture les modifications faites entre-temps dans Control.
 
-**Pour un batch JSON**, vérifier le `measurementInput` enregistré dans le JSON. Le dernier câblage consigné pour les campagnes importées était **physical IN5**, correspondant à `"measurementInput": 5` ; il doit être **recontrôlé sur le Raspberry et le câble réel**, notamment si l'interface REW a été déplacée vers IN3. Les exemples génériques affichant IN4 ne remplacent pas cette vérification.
+**For imported E-Stack JSON campaigns, set `"measurementInput": 3`.** The REW interface is connected to physical IN3 for both measurement modes, as confirmed by the user. `Measure current system` always uses IN3 automatically; calibration campaigns use it via the JSON field. Previous IN5 / `measurementInput: 5` notes are superseded. Physical IN3 is zero-based CamillaDSP channel 2.
 
 Dans les deux modes, les paramètres matériels `devices` restent inchangés. Lors de chaque modification temporaire de graphe, le Master passe au plus à **−60 dB**, puis revient au niveau précédent. Vérifier le panneau **ACTUAL DSP** et le statut de conformité à la configuration attendue avant d'interpréter la mesure ; FINISH/ABORT rétablit le DSP et le mixer de début de session.
 
