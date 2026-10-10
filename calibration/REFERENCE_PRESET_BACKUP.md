@@ -2,19 +2,25 @@
 
 ## Status
 
-This file now records the **2026-10-10 live working baseline** `Stereo-LR-balanced-L-PAD`.
+Locked working baseline from live export:
+- **2026-10-10T18:58:49.858Z**
+- title `Stereo-LR-balanced-L-PAD`
+- config revision `3b3d5f8e04576343db5a63b3a549f19dd92db640ee3955145d99aaed9e16631f`
 
-It is reconstructible at the parameter level but is **not yet the final calibrated REFERENCE**.
+Associated acoustic reference supplied by the user:
+- `oct. 10 20_57_36.mdat`
 
-## 1. Master / Gains
+Not yet a final calibrated REFERENCE.
+
+## 1. Master / gains
 
 - MASTER: -9.0 dB
 - SUB: -7.3 dB
 - KICK: -18.4 dB
-- MID L: -0.6 dB
-- MID R: +0.6 dB
-- HIGH L: -3.5 dB
-- HIGH R: -1.8 dB
+- MID L: 0.0 dB
+- MID R: 0.0 dB
+- HIGH L: -4.0 dB
+- HIGH R: -4.0 dB
 
 ## 2. Polarities
 
@@ -54,9 +60,7 @@ HIGH L/R:
 ## 5. Per-way EQ
 
 MID L/R:
-- PK 1350 Hz
-- -5.0 dB
-- Q 1.02
+- PK 1350 Hz / -5.0 dB / Q 1.02
 
 HIGH L:
 - PK 2850 Hz / -2.5 dB / Q 1.96
@@ -70,11 +74,11 @@ HIGH R:
 
 ## 6. Global/Input EQ active state
 
-The live export keeps Global EQ/GEQ filter definitions but the E-Stack state marker reports:
+Global EQ/GEQ filter definitions exist in the config, but the E-Stack state marker reports:
 - GEQ disabled
 - PEQ disabled
 
-No active pre-mixer Global EQ/Loudness stage appears in the supplied live pipeline.
+No active pre-mixer Global EQ/Loudness stage appears in the supplied pipeline.
 
 ## 7. Routing
 
@@ -88,25 +92,22 @@ Outputs:
 - 6/7 spare
 
 Normal programme:
-- IN0/IN1
 - SUB/KICK L+R sum, each source -6.0206 dB
 - MID/HIGH stereo
 
-REW:
-- physical IN5
-- ALSA CH4
-- Camilla logical IN4
-- Measurement Batch input 5
+Imported Measurement Batch:
+- current project JSONs use `measurementInput: 5`
+- actual physical REW cabling must be checked before execution
 
 ## 8. Measurement reference
 
-- sample rate: 48 kHz
+- 48 kHz
 - native NI ASIO
 - hardware timing loopback
 - ECM8000
 - Komplete Audio 1
 
-## 9. Amplifiers and protection
+## 9. Protection
 
 | Way | Hard limiter | Compressor | Attack | Release | Ratio |
 |---|---:|---:|---:|---:|---:|
@@ -115,15 +116,13 @@ REW:
 | MID L/R | -5.1 dBFS | -6.1 dB | 2 ms | 200 ms | 20:1 |
 | HIGH L/R | -5.1 dBFS | -6.1 dB | 1 ms | 150 ms | 20:1 |
 
-Amplifier calibration reference remains documented in `docs/limiters-and-amplifiers.md`.
-
 ## 10. Remaining calibration
 
-- six-way level match at C0
+- six-way level matching
 - MID/HIGH final delay/phase
 - KICK/TOP final delay/phase
 - SUB/KICK final delay/phase
 - SUM/REV final validation
 - room/system target EQ
 - spatial validation
-- final reference export
+- final calibrated reference export
