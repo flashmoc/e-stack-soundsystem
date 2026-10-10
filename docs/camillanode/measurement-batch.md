@@ -1,6 +1,6 @@
 # E-Stack Measurement Batch
 
-> **E-Stack SoundSystem measurement-input note (2026-10-10).** The built-in **Measure current system** mode always routes **physical IN3** (CamillaDSP channel 2), so connect the REW interface output to physical IN3 when using this shortcut. Imported JSON campaigns use their own optional `defaults.measurementInput`: the last documented E-Stack cabling for imported campaigns was **physical IN5** (`measurementInput: 5`), but check the cable and capture-channel mapping on the real Raspberry before using any saved JSON. These are different modes, not contradictory channel numbers. A current-system measurement does **not** automatically use the IN5 input from an imported campaign.
+> **E-Stack SoundSystem actual REW connection (confirmed by user, 2026-10-10): physical IN3 for BOTH modes.** `Measure current system` always routes physical IN3 automatically (CamillaDSP zero-based channel 2). Imported calibration campaigns use their optional `defaults.measurementInput` and must select **`measurementInput: 3`** to use the same connected socket. The previous E-Stack IN5 note was superseded. The generic IN4 examples below illustrate the one-based numbering convention; they do **not** describe the current E-Stack wiring. Source gain 0 dB in the mixer is separate from each output way's Gain filter.
 
 Measurement Batch provides **two different REW workflows** on the running CamillaDSP configuration:
 
