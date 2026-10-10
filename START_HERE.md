@@ -26,12 +26,12 @@ Ce dépôt doit permettre à un nouvel assistant, une nouvelle conversation ou u
 - Avant toute recommandation de changement, lire `CURRENT_REFERENCE.md` et `MISSING_DATA.md`.
 - Avant toute modification ou recommandation concernant CamillaNode, lire `docs/camillanode/README.md`, `runtime-contracts.md` et `dsp-safety.md`.
 - Avant de générer un JSON Measurement Batch, lire `docs/camillanode/measurement-batch.md` et `docs/camillanode/SOURCE.md`.
-- Pour le système actuel, `measurementInput` est **5** tant que `docs/system-architecture.md` documente `physical IN5 → ALSA CH4 → Camilla logical IN4`. Ne pas recopier automatiquement le `4` des exemples historiques.
+- **Ne pas confondre les deux modes Measurement Batch.** `Measure current system` (bouton **MEASURE NOW**) utilise toujours **physical IN3** (CamillaDSP source channel 2), sans `measurementInput` à définir. Pour une **campagne JSON importée**, `defaults.measurementInput` est facultatif ; la dernière connexion documentée pour ces campagnes est **physical IN5** (`measurementInput: 5`, ALSA CH4 / Camilla IN4), à revérifier physiquement avant mesure. Ne pas recycler le `4` des exemples historiques ni appliquer aveuglément `5` au mode « état actuel ».
 - Quand un réglage est validé, mettre à jour `CURRENT_REFERENCE.md`, `ESTACK_CURRENT_STATE.md`, `REFERENCE_PRESET_BACKUP.md` et le `CHANGELOG.md`.
 - Ne pas modifier le preset de référence sans conserver l'ancien état dans Git.
 - Les mesures `.mdat` envoyées dans le chat servent à l'analyse ; leurs conclusions validées doivent être résumées dans le repo.
 - Le fichier YAML CamillaDSP réellement chargé sur la Raspberry, lorsqu'il sera ajouté, prime sur une transcription manuelle si les deux divergent.
-- Les fichiers sous `docs/camillanode/` sont un miroir documentaire du repo `flashmoc/camillaNode-EStack`; les différences propres au système réel doivent être documentées séparément, pas modifiées silencieusement dans le miroir.
+- Les fichiers sous `docs/camillanode/` sont des miroirs documentaires à provenance explicite dans `docs/camillanode/SOURCE.md`. La référence Measurement Batch est désormais synchronisée avec **`flashmoc/e-stack-dsp`**, qui contient le mode `Measure current system` ; les autres fichiers conservent leur provenance `flashmoc/camillaNode-EStack`. Ne pas modifier silencieusement leur comportement décrit.
 
 ## Objectif de reproductibilité
 
