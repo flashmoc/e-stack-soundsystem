@@ -14,7 +14,14 @@ Exemples copiés depuis CamillaNode :
 - `batch-examples/measurement-batch-kick-mid.example.json`
 - `batch-examples/measurement-batch-smoke-test-v1.json`
 
-Attention : les exemples historiques peuvent utiliser `measurementInput: 4`. Pour le système E-Stack actuellement documenté, REW arrive sur **physical IN5**, donc les nouveaux batchs doivent utiliser `measurementInput: 5` tant que le routing n’a pas changé.
+**Deux modes distincts (2026-10-10) :**
+
+- **Measure current system / MEASURE NOW :** n'utilise **pas** ces JSON ; il capture le DSP au clic, route **physical IN3** aux six destinations du mixer à 0 dB de gain source et garde les gains, MUTE, EQ, crossovers, Input Trim, Loudness, délais et protections de l'état capturé. Pour l'utiliser, brancher réellement la sortie REW sur **physical IN3** ; arrêter le générateur interne et maintenir le WiiM stable si Loudness est actif.
+- **Campagne JSON importée :** `START BATCH` capture une fois la baseline, puis applique des étapes relatives. Les voies choisies sont démûtées, les autres mutées ; `gainOffsetDb` est une **atténuation relative**. Input Trim et Loudness sont forcés OFF. `measurementInput` est le numéro **physique IN1–IN8** si une source de mesure dédiée est configurée.
+- Les exemples historiques peuvent utiliser `measurementInput: 4`. Le dernier câblage des campagnes du projet est noté **physical IN5 → `measurementInput: 5`**. Vérifier le câblage actuel avant de réutiliser les JSON de `batches/`. **IN3 est fixe uniquement pour le mode état actuel.**
+- Les deux modes restaurent le DSP et le routage de référence à la fin/annulation, préservent les paramètres `devices`, et baissent temporairement Master à **au plus −60 dB** lors des changements de configuration.
+
+Voir `docs/camillanode/measurement-batch.md` pour le détail et les diagnostics `/api/measurement-batch/effective`.
 
 ## Comptes-rendus de campagne
 
