@@ -39,6 +39,6 @@ Supporting Measurement Batch examples were also copied from the CamillaNode repo
 ## E-Stack measurement inputs: distinguish the modes
 
 - **Measure current system / live snapshot:** the server always routes **physical IN3** to OUT1…OUT6 at 0 dB mixer-source gain. This is independent of `defaults.measurementInput` in any saved JSON. The REW interface must actually feed physical IN3 for this shortcut to produce a valid sweep.
-- **Imported JSON campaign / calibration:** optional `defaults.measurementInput` chooses the physical input. The last documented E-Stack REW connection for these campaigns was **physical IN5 → ALSA CH4 (zero-based) → Camilla logical IN4**, requiring `"measurementInput": 5`. This old hardware connection must be verified if the interface cable was moved.
-- **No unconditional global input number:** physical IN3 is fixed by current-system mode; physical IN5 is a recorded campaign wiring choice, not the fixed input of every mode.
+- **Imported JSON campaign / calibration:** optional `defaults.measurementInput` chooses the physical input. The **current agreed E-Stack wiring is physical IN3 → CamillaDSP zero-based IN2/channel 2**, therefore use `"measurementInput": 3`.
+- The older physical IN5 / logical IN4 campaign wiring note is superseded.
 - **Baseline policies differ:** the calibration campaign forces Loudness and Input Trim off; current-system mode preserves both, along with the selected ways' existing gains/mutes.
