@@ -95,7 +95,9 @@ Measurement source currently documented:
 - physical **IN5**
 - ALSA zero-based **CH4**
 - Camilla logical **IN4**
-- Measurement Batch: `measurementInput: 5`
+- Imported Measurement Batch campaign (last documented REW cabling): `measurementInput: 5`
+
+**Mode distinction (2026-10-10):** the separate **Measure current system** shortcut does **not** use the above imported-campaign input. It always routes **physical IN3** (CamillaDSP source channel 2) at 0 dB mixer-source gain while preserving selected ways' captured output gains and mute flags, Input Trim, Loudness, filters and protections. The historical physical IN5 connection for imported batches must be checked on the actual hardware before reusing the existing JSON campaign. Do not infer current cable position from this DSP export.
 
 ## Protection
 
