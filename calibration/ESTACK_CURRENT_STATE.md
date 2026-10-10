@@ -116,7 +116,7 @@ Programme IN0/IN1:
 
 The preset export does not encode which physical socket currently carries the REW cable.
 
-Imported batch JSONs currently specify `measurementInput: 5`; verify the physical cable before use. Do not infer cable position from this DSP export.
+Imported batch JSONs now specify `measurementInput: 3`, matching physical IN3 / Camilla zero-based IN2.
 
 ## Protection
 
