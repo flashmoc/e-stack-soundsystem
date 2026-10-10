@@ -31,7 +31,9 @@ Latest live DSP export supplied **2026-10-10**:
 - physical input: IN5
 - ALSA zero-based: CH4
 - Camilla logical: IN4
-- Measurement Batch: `measurementInput: 5`
+- for an **imported calibration JSON**, the last recorded wiring corresponds to `measurementInput: 5`
+
+**Separate current-system shortcut:** `MEASURE NOW` always routes **physical IN3** (CamillaDSP source channel 2), keeps selected ways' current gain/mute, Input Trim/Loudness and all existing filters/protections, and captures a new baseline on each start. The earlier physical IN5 record remains a *historical campaign wiring note*, not the hardcoded input of current-system mode. Verify the real audio cable/channel map before a measurement; do not treat the physical input currently used as independently verified by the preset export.
 
 ## Current master / gains
 
