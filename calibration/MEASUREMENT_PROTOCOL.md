@@ -1,14 +1,39 @@
 # E-Stack — Measurement Protocol
 
+## Choisir le bon mode Measurement Batch avant toute mesure
+
+**Deux modes, deux comportements de capture différents.**
+
+| Propriété | Mesure « état actuel » (MEASURE NOW) | Campagne JSON importée (START BATCH) |
+| --- | --- | --- |
+| Source REW | **Physical IN3**, imposée par le serveur | `defaults.measurementInput` = numéro physique IN1…IN8, sinon routing capturé |
+| Capture de référence | **Nouvelle** capture à chaque clic | **Une seule** capture au démarrage de la campagne |
+| Mixer | IN3 vers six destinations à **0 dB gain source** | Entrée sélectionnée vers six destinations à **0 dB gain source** si configurée |
+| Voies sélectionnées | Gain **et MUTE** de Control inchangés | Démûtées ; gain baseline + offsets négatifs éventuels |
+| Voies exclues | Mutées temporairement | Mutées par défaut |
+| Input Trim et Loudness | **Conservés** | **Forcés OFF** |
+| Autres filtres / protections | Capturés et conservés | Capturés, sauf ajustements de calibration explicitement demandés |
+| Fin / annulation | Restore config + routing capturés | Restore config + routing capturés |
+
+**Pour une mesure rapide avec le preset courant**, connecter effectivement la sortie de la carte son REW à **physical IN3**, choisir les voies dans **Measure current system**, puis cliquer **MEASURE NOW**. Le fait de régler une voie à **−60 dB n'est pas un mute** : la désélectionner, ou la muter **avant** la capture, pour l'exclure complètement. Un nouveau clic après FINISH/ABORT capture les modifications faites entre-temps dans Control.
+
+**Pour un batch JSON**, vérifier le `measurementInput` enregistré dans le JSON. Le dernier câblage consigné pour les campagnes importées était **physical IN5**, correspondant à `"measurementInput": 5` ; il doit être **recontrôlé sur le Raspberry et le câble réel**, notamment si l'interface REW a été déplacée vers IN3. Les exemples génériques affichant IN4 ne remplacent pas cette vérification.
+
+Dans les deux modes, les paramètres matériels `devices` restent inchangés. Lors de chaque modification temporaire de graphe, le Master passe au plus à **−60 dB**, puis revient au niveau précédent. Vérifier le panneau **ACTUAL DSP** et le statut de conformité à la configuration attendue avant d'interpréter la mesure ; FINISH/ABORT rétablit le DSP et le mixer de début de session.
+
+**Attention Loudness en « état actuel » :** le traitement est conservé et peut varier avec le volume WiiM pendant le sweep. Conserver le volume source constant pour des comparaisons ; pour une mesure de référence statique, désactiver le Loudness **avant** MEASURE NOW. Ne pas utiliser l'outil Signal Generator interne en même temps qu'un Measurement Batch.
+
+Pour les détails du traitement et des endpoints, voir `docs/camillanode/measurement-batch.md`.
+
 ## A. Avant de mesurer
 
 Vérifier :
 - 48 kHz partout
-- driver NI ASIO natif
+- driver natif/ASIO de la Komplete Audio 1 (ou du périphérique REW effectivement employé)
 - loopback actif
 - aucune saturation
 - protections actives
-- routing Camilla correct
+- routing Camilla correct **pour le mode choisi** (IN3 fixe en état actuel / INx configurable en JSON)
 - aucune voie inattendue dans les meters
 - micro immobile pendant une série
 - gains fixes
