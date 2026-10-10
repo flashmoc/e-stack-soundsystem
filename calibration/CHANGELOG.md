@@ -2,24 +2,28 @@
 
 ## 2026-10-10
 
+Locked calibration baseline superseding earlier same-day exports:
+- authoritative live export: `2026-10-10T18:58:49.858Z`;
+- title: `Stereo-LR-balanced-L-PAD`;
+- config revision: `3b3d5f8e04576343db5a63b3a549f19dd92db640ee3955145d99aaed9e16631f`;
+- associated acoustic reference supplied by user: `oct. 10 20_57_36.mdat`;
+- MASTER -9.0 dB;
+- SUB -7.3 dB;
+- KICK -18.4 dB, inverted;
+- MID L/R 0.0 dB;
+- HIGH L/R -4.0 dB;
+- delays: SUB 0.000 ms, KICK 1.300 ms, MID 2.760 ms, HIGH 2.720 ms;
+- per-way PEQ and protection topology retained as documented;
+- Global GEQ and Global PEQ state disabled;
+- `CURRENT_REFERENCE.md`, `ESTACK_CURRENT_STATE.md`, `REFERENCE_PRESET_BACKUP.md` updated;
+- six-solo level-match batch pinned to this config revision.
+
 Measurement Batch documentation sync (no DSP/audio preset changes):
 - synchronized `docs/camillanode/measurement-batch.md` with the dual-mode behavior verified in `flashmoc/e-stack-dsp`;
 - recorded **Measure current system** using physical **IN3**, new live capture each run, mixer source at 0 dB, preserved output gains/mutes, input processing and Loudness;
 - recorded **imported calibration JSON** as a single baseline for multiple steps, relative negative gain offsets, selected ways unmuted, Loudness/Input Trim forced off, optional measurement input (historical E-Stack campaign path IN5);
 - documented the −60 dB Master transition, actual-DSP diagnostics, automatic restore and the difference between an output gain of −60 dB and true mute;
-- flagged physical REW cabling IN3 versus historical IN5 for verification; updated central protocol, reference notes, system architecture and documentation provenance.
-
-Live baseline sync from user export `Stereo-LR-balanced-L-PAD`:
-- MASTER -9.0 dB;
-- SUB -7.3 dB;
-- KICK -18.4 dB, inverted;
-- MID L -0.6 dB / MID R +0.6 dB;
-- HIGH L -3.5 dB / HIGH R -1.8 dB;
-- absolute delays captured: SUB 0.000 ms, KICK 1.300 ms, MID 2.760 ms, HIGH 2.720 ms;
-- current Global GEQ and Global PEQ state recorded as disabled;
-- current protection thresholds verified from the live export;
-- `CURRENT_REFERENCE.md`, `ESTACK_CURRENT_STATE.md` and `REFERENCE_PRESET_BACKUP.md` updated to the live working baseline;
-- six-solo level-match batch corrected so it no longer tries to disable a missing `ESTACK_LOUDNESS` filter.
+- physical REW cabling remains a hardware fact to verify before campaigns.
 
 ## 2026-09-08
 
