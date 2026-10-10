@@ -20,11 +20,11 @@ Source musicale :
 
 **2. Campagne JSON importée (calibration)**
 
-Dernier chemin matériel noté dans le projet (historique à vérifier si le câble a changé) :
+Chemin matériel actuel :
 
-`REW → RASPIAUDIO physical IN5 → ALSA CH4 (zéro-based) → Camilla logical IN4 → mixer (source 0 dB si measurementInput: 5) → traitements de voies`
+`REW → RASPIAUDIO physical IN3 → CamillaDSP zero-based IN2 / channel 2 → mixer (source 0 dB avec measurementInput: 3) → traitements de voies`
 
-- `defaults.measurementInput: 5` vaut pour cette entrée physique **uniquement si le câble est encore sur IN5**. Dans le cas contraire, adapter `measurementInput` au numéro physique réellement raccordé.
+- `defaults.measurementInput: 3` correspond à **physical IN3**, car le champ JSON utilise une numérotation physique one-based.
 - Si aucun `measurementInput` n'est défini, le routage du mixer capturé est préservé.
 - Les EQ d'entrée communs à L/R sont recopiés temporairement sur l'entrée de mesure choisie ; ils ne sont pas contournés quand le mode Measurement Batch est actif.
 - Les voies choisies sont démûtées ; les autres mutées par défaut. Les gains peuvent recevoir des **offsets négatifs relatifs** à la baseline.
@@ -53,5 +53,5 @@ IN0/IN1 :
 ## Routing des mesures
 
 - Mode **état actuel** : IN3 physique, une seule source mono à 0 dB dans les six destinations de mixer ; les gains de sortie capturés restent en place.
-- Mode **campagne importée** : entrée choisie via `measurementInput`, historiquement IN5 pour le câblage REW documenté ; 0 dB ne concerne que le gain de source du mixer, pas les gains de sortie.
+- Mode **campagne importée** : entrée actuelle **physical IN3 / measurementInput: 3** ; 0 dB ne concerne que le gain de source du mixer, pas les gains de sortie.
 - Les voies exclues sont mutées par leur filtre de gain, sans désactiver les protections.
