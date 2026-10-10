@@ -1,0 +1,118 @@
+{
+  "schema": "estack.measurement-batch",
+  "version": 1,
+  "name": "Stereo level match — 6 solo ways",
+  "description": "Six-way level-matching acquisition at the main listening position. Measures each DSP way alone with the same REW level and timing reference. Loudness is disabled; the live baseline crossovers, per-way PEQ, delays, polarity and protections remain active. No gain changes are applied by the batch.",
+  "defaults": {
+    "muteUnlisted": true,
+    "settleMs": 700,
+    "measurementInput": 5,
+    "disabledFilters": [
+      "ESTACK_LOUDNESS"
+    ]
+  },
+  "steps": [
+    {
+      "id": "L01",
+      "name": "SUB SOLO C0",
+      "position": "C0 — main listening position, capsule at ear height, fixed orientation toward the centre between the two stereo heads",
+      "instruction": "Place the microphone at C0. Do not move it during L01-L06.",
+      "activeWays": [
+        "SUB"
+      ],
+      "rew": {
+        "measurementName": "L01_SUB_SOLO_C0",
+        "startHz": 20,
+        "endHz": 20000,
+        "levelDbfs": -30,
+        "timingReference": true,
+        "notes": "Level-match acquisition. Analyse mainly the stable SUB passband; keep the same sweep level for all six measurements."
+      }
+    },
+    {
+      "id": "L02",
+      "name": "KICK SOLO C0",
+      "position": "C0 — main listening position, same microphone position and orientation",
+      "instruction": "Microphone immobile.",
+      "activeWays": [
+        "KICK"
+      ],
+      "rew": {
+        "measurementName": "L02_KICK_SOLO_C0",
+        "startHz": 20,
+        "endHz": 20000,
+        "levelDbfs": -30,
+        "timingReference": true,
+        "notes": "Level-match acquisition. KICK uses the captured baseline gain/polarity/delay."
+      }
+    },
+    {
+      "id": "L03",
+      "name": "MID L SOLO C0",
+      "position": "C0 — main listening position, same microphone position and orientation",
+      "instruction": "Microphone immobile.",
+      "activeWays": [
+        "MID_L"
+      ],
+      "rew": {
+        "measurementName": "L03_MID_L_SOLO_C0",
+        "startHz": 20,
+        "endHz": 20000,
+        "levelDbfs": -30,
+        "timingReference": true,
+        "notes": "Left MID solo with current crossover, per-way PEQ and protection active."
+      }
+    },
+    {
+      "id": "L04",
+      "name": "HIGH L SOLO C0",
+      "position": "C0 — main listening position, same microphone position and orientation",
+      "instruction": "Microphone immobile.",
+      "activeWays": [
+        "HIGH_L"
+      ],
+      "rew": {
+        "measurementName": "L04_HIGH_L_SOLO_C0",
+        "startHz": 20,
+        "endHz": 20000,
+        "levelDbfs": -30,
+        "timingReference": true,
+        "notes": "Left HIGH solo with current HPF, per-way PEQ and protection active."
+      }
+    },
+    {
+      "id": "L05",
+      "name": "MID R SOLO C0",
+      "position": "C0 — main listening position, same microphone position and orientation",
+      "instruction": "Microphone immobile.",
+      "activeWays": [
+        "MID_R"
+      ],
+      "rew": {
+        "measurementName": "L05_MID_R_SOLO_C0",
+        "startHz": 20,
+        "endHz": 20000,
+        "levelDbfs": -30,
+        "timingReference": true,
+        "notes": "Right MID solo. Compare against MID L before averaging the MID level."
+      }
+    },
+    {
+      "id": "L06",
+      "name": "HIGH R SOLO C0",
+      "position": "C0 — main listening position, same microphone position and orientation",
+      "instruction": "Microphone immobile.",
+      "activeWays": [
+        "HIGH_R"
+      ],
+      "rew": {
+        "measurementName": "L06_HIGH_R_SOLO_C0",
+        "startHz": 20,
+        "endHz": 20000,
+        "levelDbfs": -30,
+        "timingReference": true,
+        "notes": "Right HIGH solo. Compare against HIGH L before averaging the HIGH level."
+      }
+    }
+  ]
+}
