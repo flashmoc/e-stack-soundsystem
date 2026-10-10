@@ -1,85 +1,133 @@
 # E-Stack — Current Reference
 
-Dernier état de référence connu pour la calibration actuelle.
+## Status
 
-## Gains
+**WORKING / LIVE BASELINE — not yet final calibration.**
 
-- MASTER: **-12.0 dB**
-- SUB: **-9.5 dB**
-- KICK: **-19.3 dB**
-- MID L/R: **-14.0 dB**
-- HIGH L/R: **-7.6 dB**
+Source: live system export supplied on **2026-10-10**, title `Stereo-LR-balanced-L-PAD`.
 
-## Polarités
+This live export supersedes older manually transcribed gain/delay values when they differ.
+
+## Master and way gains
+
+- MASTER: **-9.0 dB**
+- SUB: **-7.3 dB**
+- KICK: **-18.4 dB**
+- MID L: **-0.6 dB**
+- MID R: **+0.6 dB**
+- HIGH L: **-3.5 dB**
+- HIGH R: **-1.8 dB**
+
+Current L/R offsets:
+- MID R is **+1.2 dB** relative to MID L
+- HIGH R is **+1.7 dB** relative to HIGH L
+
+These are the current deployment gains, not yet the final level-match result.
+
+## Polarities
 
 - SUB: **NORMAL**
 - KICK: **INVERTED**
 - MID L/R: **NORMAL**
 - HIGH L/R: **NORMAL**
 
-## Delays connus
+## Delays
 
+- SUB: **0.000 ms**, subsample enabled
+- KICK: **1.300 ms**
 - MID L/R: **2.760 ms**
 - HIGH L/R: **2.720 ms**
-- Différence MID/HIGH: **MID +0.040 ms** par rapport au HIGH
-- SUB/KICK: valeurs absolues encore à capturer depuis la config DSP avant de considérer le backup comme complet
+
+Relative baseline:
+- MID is **+0.040 ms** later than HIGH
+- MID is **+1.460 ms** later than KICK
+- HIGH is **+1.420 ms** later than KICK
+- KICK is **+1.300 ms** later than SUB
+
+These values are current working values; final delay/phase optimisation is still pending.
 
 ## Crossovers
 
-- SUB: HPF **40 Hz BW24**, LPF **130 Hz LR24**
+- SUB: HPF **40 Hz Butterworth order 4 / 24 dB/oct**, LPF **130 Hz LR24**
 - KICK: HPF **130 Hz LR24**, LPF **300 Hz LR24**
 - MID L/R: HPF **300 Hz LR24**, LPF **2000 Hz LR24**
 - HIGH L/R: HPF **2000 Hz LR24**
 
-## PEQ de voie
+## Per-way PEQ
 
 MID L/R:
-- PK **1350 Hz / -5.0 dB / Q 1.0**
+- PK **1350 Hz / -5.0 dB / Q 1.02**
 
-HIGH L/R:
-- PK **2850 Hz / -2.5 dB / Q 2.0**
-- PK **4600 Hz / -4.0 dB / Q 1.0**
+HIGH L:
+- PK **2850 Hz / -2.5 dB / Q 1.96**
+- PK **4600 Hz / -4.0 dB / Q 1.03**
+- High-shelf **7763 Hz / +5.7 dB / Q 1**
 
-## System EQ actuel
+HIGH R:
+- PK **2850 Hz / -2.5 dB / Q 1.96**
+- PK **4600 Hz / -4.0 dB / Q 0.70**
+- High-shelf **7763 Hz / +5.7 dB / Q 1**
 
-- PK/BELL **162 Hz / -4.0 dB / Q 0.70**
+## Input / Global EQ state
 
-Placement observé actuellement:
-- Input Processing
-- `shared Input L/R - pre-routing`
+The current live export contains Global PEQ/GEQ filter definitions, but the stored `ESTACK_INPUT_EQ_STATE` reports:
 
-Point à corriger/valider:
-- la source REW arrive sur IN4 et bypass probablement ce filtre ; le System EQ doit idéalement être placé après le mixer `estack_preview` et avant les traitements de voie pour que musique et REW traversent la même correction.
+- GEQ: **disabled**
+- PEQ: **disabled**
+
+The live pipeline starts at mixer `estack_preview`; no Global EQ or Loudness filter stage is active before the mixer in this export.
+
+Therefore calibration batches must not assume `ESTACK_LOUDNESS` exists in the live baseline.
 
 ## Routing
 
-- OUT0 SUB
-- OUT1 KICK
-- OUT2 MID L
-- OUT3 MID R
-- OUT4 HIGH L
-- OUT5 HIGH R
-- OUT6/7 libres
+Mixer `estack_preview`:
 
-Source REW:
-- Camilla logical IN4
-- ALSA zero-based CH4
-- physical/human IN5
+- OUT0 SUB: IN0 + IN1, each **-6.0206 dB**
+- OUT1 KICK: IN0 + IN1, each **-6.0206 dB**
+- OUT2 MID L: IN0 at 0 dB
+- OUT3 MID R: IN1 at 0 dB
+- OUT4 HIGH L: IN0 at 0 dB
+- OUT5 HIGH R: IN1 at 0 dB
+- OUT6/7 spare
 
-## Statut
+Measurement source currently documented:
+- physical **IN5**
+- ALSA zero-based **CH4**
+- Camilla logical **IN4**
+- Measurement Batch: `measurementInput: 5`
 
-Déjà fortement validé:
-- polarités SUB/KICK
-- calage relatif MID/HIGH
-- retard commun du TOP par rapport au KICK
-- PEQ MID/HIGH actuels
+## Protection
 
-À terminer avant REFERENCE final:
-- déplacer/valider le System EQ commun
-- recheck final SUM/REV MID-HIGH après PEQ
-- recheck final KICK-MID
-- capturer delays absolus SUB/KICK
-- limiteurs
-- directivité
-- distorsion/headroom
-- export YAML final
+Hard limiters:
+- SUB: **-12.6 dBFS**
+- KICK: **-15.8 dBFS**
+- MID L/R: **-5.1 dBFS**
+- HIGH L/R: **-5.1 dBFS**
+
+Compressors:
+- SUB: **-13.6 dB**, 10 ms / 500 ms / 20:1
+- KICK: **-16.8 dB**, 5 ms / 300 ms / 20:1
+- MID L/R: **-6.1 dB**, 2 ms / 200 ms / 20:1
+- HIGH L/R: **-6.1 dB**, 1 ms / 150 ms / 20:1
+
+Protection thresholds are present in the live export, but amplifier calibration comments still mark some assumptions/provisional validation requirements.
+
+## Calibration status
+
+Known live baseline:
+- current gains and L/R balance captured
+- absolute SUB/KICK delays captured
+- all current polarities captured
+- crossover/PEQ/protection topology captured
+
+To finish:
+- six-way solo level match at C0
+- final MID/HIGH phase/delay optimisation L and R
+- final KICK ↔ stereo TOP compromise
+- final SUB ↔ KICK optimisation
+- physical SUM/REV verification
+- spatial robustness
+- final room/system target EQ
+- directivity / distortion / headroom checks
+- final reference export
