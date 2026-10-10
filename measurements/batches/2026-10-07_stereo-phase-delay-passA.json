@@ -6,10 +6,8 @@
   "defaults": {
     "muteUnlisted": true,
     "settleMs": 700,
-    "measurementInput": 5,
-    "disabledFilters": [
-      "ESTACK_LOUDNESS"
-    ]
+    "measurementInput": 3,
+    "disabledFilters": []
   },
   "steps": [
     {
