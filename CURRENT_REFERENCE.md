@@ -95,10 +95,12 @@ Mixer `estack_preview`:
 - OUT5 HIGH R: IN1 at 0 dB
 - OUT6/7 spare
 
-Measurement-input note:
-- imported JSON campaigns still use the project wiring convention recorded in their JSON (currently `measurementInput: 5`);
-- the DSP export itself does not prove the physical REW cable location;
-- verify actual hardware cabling before starting a campaign.
+Measurement source — current agreed wiring:
+- physical **IN3**
+- CamillaDSP zero-based **IN2 / channel 2**
+- imported Measurement Batch: **`measurementInput: 3`** because this field uses one-based physical input numbering
+
+The older physical IN5 / logical IN4 campaign path is superseded.
 
 ## Protection
 
