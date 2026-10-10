@@ -13,7 +13,7 @@ Ce fichier liste ce qui manque encore pour qu'une nouvelle conversation ou un au
 
 ## HIGH — requis pour reprise technique fiable
 
-- [ ] Confirmer sur le système réel **où est branchée actuellement la sortie analogique REW** : le mode `Measure current system` utilise **physical IN3** obligatoirement, tandis que les anciens JSON ont `measurementInput: 5` (physical IN5). Tester la correspondance réelle carte son → RASPIAUDIO → canal CamillaDSP avant de reprendre les campagnes.
+- [x] **Entrée REW courante confirmée par l'utilisateur : physical IN3** pour les deux modes ; les trois fichiers JSON de campagne présents utilisent `measurementInput: 3`. Un test de signal sur le Raspberry pourra toujours valider le mapping physique/ALSA, indépendamment de cette confirmation.
 - [ ] Sauvegarder les paramètres complets des amplificateurs utiles au calage/protection : gain/sensibilité réellement utilisée, positions de potentiomètres si pertinentes, impédances des charges.
 - [ ] Documenter les modèles exacts de tous les transducteurs/caissons et leur affectation par voie.
 - [ ] Documenter les paramètres complets REW utilisés pour les campagnes de référence : sweep range, level, length, timing reference, calibration mic utilisée ou non.
@@ -33,7 +33,7 @@ Ce fichier liste ce qui manque encore pour qu'une nouvelle conversation ou un au
 
 Le repo contient déjà :
 - mapping sorties ;
-- source REW historique **physical IN5** pour campagne importée ; source **physical IN3** imposée par le mode `Measure current system` ; câblage actuel à confirmer ;
+- source REW actuelle **physical IN3** pour les deux modes : fixe dans `Measure current system`, configurée par `measurementInput: 3` dans les campagnes importées ; historique IN5 obsolète ;
 - gains actuels ;
 - polarités actuelles ;
 - delays MID/HIGH ;
