@@ -6,7 +6,7 @@
   "defaults": {
     "muteUnlisted": true,
     "settleMs": 700,
-    "measurementInput": 5,
+    "measurementInput": 3,
     "disabledFilters": []
   },
   "steps": [
