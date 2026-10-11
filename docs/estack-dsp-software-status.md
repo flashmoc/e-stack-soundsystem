@@ -1,6 +1,6 @@
 # E-Stack DSP — état logiciel et frontières de preuve
 
-Référence documentaire : [flashmoc/e-stack-dsp](https://github.com/flashmoc/e-stack-dsp), branche `main`, commit `642ede541e282ce9329390698bdbad5075577808` (10 octobre 2026). Le miroir exact est dans `docs/camillanode/` ; son inventaire de blobs est dans [`SOURCE.md`](camillanode/SOURCE.md). Ce document résume ce **commit logiciel**, sans prétendre connaître le commit actuellement installé sur le Raspberry.
+Référence documentaire : [flashmoc/e-stack-dsp](https://github.com/flashmoc/e-stack-dsp), branche `main`, commit `0fd2acf8eacf4abe3bfe337b020465f7e13ec7b8` (11 octobre 2026). Le miroir exact est dans `docs/camillanode/` ; son inventaire de blobs est dans [`SOURCE.md`](camillanode/SOURCE.md). Ce document résume ce **commit logiciel**, sans prétendre connaître le commit actuellement installé sur le Raspberry.
 
 ## Installation et architecture
 
@@ -16,11 +16,11 @@ Référence documentaire : [flashmoc/e-stack-dsp](https://github.com/flashmoc/e-
 | Input Processing | GEQ et PEQ d'entrée indépendants, import/presets adaptés à l'éditeur visible, état ON/OFF enregistré dans la configuration DSP | [`input-processing.md`](camillanode/pages/input-processing.md) |
 | Output Processing | EQ, crossover, gain, délai, phase, polarité et mute ; lien MID/HIGH pour les réglages de paire, PEQ par voie avec copie explicite de l'autre côté | [`output-processing.md`](camillanode/pages/output-processing.md) |
 | Loudness | Presets, état ON/OFF explicite, courbes maximum et courante lorsque WiiM transmet une télémétrie fraîche ; niveau WiiM en pourcentage, pas un niveau dBFS mesuré | [`loudness.md`](camillanode/pages/loudness.md) |
-| Measurement Batch | Campagne JSON relative à une baseline capturée une fois **ou** mesure ponctuelle du système à l'instant T via IN3 ; état DSP appliqué vérifiable, restauration en fin/annulation | [`measurement-batch.md`](camillanode/measurement-batch.md) |
-| System Presets | Capture et rappel du traitement + Master, choix de démarrage et export JSON live ou sauvegardé ; un preset ne remplace ni `devices` ni `mixers` | [`system-presets.md`](camillanode/pages/system-presets.md) |
+| Measurement Batch | Campagne JSON relative à une baseline capturée une fois **ou** mesure ponctuelle du système à l'instant T via IN3 ; v3 permet des candidats temporaires GEQ/PEQ d'entrée et gain/PEQ des voies, sous limites serveur ; état DSP appliqué vérifiable, restauration en fin/annulation | [`measurement-batch.md`](camillanode/measurement-batch.md) |
+| System Presets | Capture et rappel du traitement + Master, choix de démarrage, import et export JSON live ou sauvegardé ; un preset ne remplace ni `devices` ni `mixers` | [`system-presets.md`](camillanode/pages/system-presets.md) |
 | Preferences | Présentation locale, page d'accueil, diagnostics Connections, changement live du chunksize avec estimation `chunksize / samplerate` et validation serveur | [`preferences.md`](camillanode/pages/preferences.md) |
 
-La fonctionnalité **Import JSON dans System Presets** a été implémentée et testée dans une branche locale `codex/system-preset-import` du dépôt logiciel (commit `86f4a83`). Au commit `main` miroir ci-dessus elle **n'est pas fusionnée**. Elle ne doit pas être annoncée comme disponible sur le Raspberry avant fusion, déploiement et vérification de la version du service. Elle crée un nouveau preset de traitement + Master sans l'appliquer ni modifier le hardware.
+L'import JSON de System Presets et les candidats Measurement Batch v3 sont présents dans le **code source** du commit cité. Leur disponibilité sur le Raspberry dépend de la version effectivement déployée et doit être vérifiée avant utilisation. L'import crée un nouveau preset de traitement + Master sans l'appliquer ni modifier le hardware ; une campagne v3 n'enregistre pas ses candidats comme preset.
 
 ## Trois états à ne pas confondre
 

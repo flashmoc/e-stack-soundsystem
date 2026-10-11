@@ -21,12 +21,13 @@ Press **NEXT / FINISH** to end the single step or **ABORT & RESTORE** to cancel.
 
 - Selected ways are forcibly unmuted and other ways are muted by default (`muteUnlisted`).
 - `gainOffsetDb` is **relative attenuation**: final output Gain = captured output Gain + offset, where offset is constrained to −60…0 dB.
+- In version 3, `gainDb` is an absolute way gain, limited to +3 dB above the captured value. Input GEQ targets, input PEQ slots and output PEQ slots can be varied per step within the server's bounds; see the [version 3 format](../measurement-batch.md#input-eq-and-full-way-candidates-version-3).
 - The batch may adjust delay, phase, polarity, crossovers or input-filter exclusions within its guarded validation rules. It never removes protections.
 - Loudness and the normal listening Input Trim/preamp are **forced off for calibration**, then restored at the end.
 - Optional `defaults.measurementInput` chooses a **physical IN1…IN8**, feeding logical OUT1…OUT6 at **0 dB mixer-source gain**, with shared pre-mixer L/R filters also applied to the selected input. If absent, the captured mixer routing stays in use.
 - Completion and abort restore the captured mixer mapping and processing.
 
-For batch schema, examples, mode comparison and API details, see [Measurement Batch reference](../measurement-batch.md).
+For batch schema, examples, mode comparison and API details, see [Measurement Batch reference](../../measurement-batch.md).
 
 ## Baseline and actual-state diagnostics
 
@@ -42,3 +43,8 @@ Live mode uses the existing `/api/measurement-batch/` status, baseline, effectiv
 Current measurement and live processing are polled without unmounting sequence buttons. The `Abort & Restore` action remains available during an API status outage. The local adapter is loaded only outside CamillaNode mode. Local sample import is hidden/unbound in live mode; local preview is retained for demonstrations.
 
 Repository tests cover imported calibration mode and current-system capture, including IN3 routing, preservation of output gains and selected-way mute, input trim/loudness, fresh per-session snapshot, effective-state reporting, and restoration. These **software simulation checks do not replace physical Raspberry/audio-hardware acceptance**.
+
+
+Imported version 2 campaigns can also test temporary, cut-only output PEQ slot values in each step. The server applies them to the captured baseline and restores the baseline after finish/abort. See [Measurement Batch](../measurement-batch.md#output-peq-candidate-sweeps-version-2) for the schema and safeguards. Version 1 campaigns remain supported.
+
+Version 3 campaigns additionally support temporary input Graphic/Parametric EQ targets and output PEQ type/enable settings. Master, Input Trim and Loudness are not step-adjustable. A version 3 file must be imported into a server that supports version 3; older servers reject it before a sweep begins.

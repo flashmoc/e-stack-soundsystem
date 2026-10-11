@@ -1,5 +1,11 @@
 # Changelog
 
+## 2026-10-11 — synchronisation Measurement Batch v3 (sans modification DSP)
+
+- Miroir documentaire resynchronisé sur `flashmoc/e-stack-dsp` `main` au commit `0fd2acf8eacf4abe3bfe337b020465f7e13ec7b8` ; provenance des blobs actualisée dans `docs/camillanode/SOURCE.md`.
+- Documentation pratique des candidats temporaires GEQ/PEQ d'entrée, gain et PEQ des voies, des limites de boost et de la capture unique de baseline ; état logiciel System Presets corrigé après fusion de l'import JSON.
+- Aucune campagne exécutée, aucun résultat acoustique ni réglage matériel modifié par cette mise à jour documentaire.
+
 ## 2026-10-11 — audit documentaire (sans modification DSP)
 
 - Synchronisation **octet pour octet** de toute la documentation Markdown de `flashmoc/e-stack-dsp` branche `main` au commit `642ede541e282ce9329390698bdbad5075577808` dans `docs/camillanode/`, avec provenance par blob dans `SOURCE.md`. Les anciennes instructions de déploiement `camillaNode-EStack` ne décrivent plus le logiciel produit.
