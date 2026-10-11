@@ -3,6 +3,7 @@
 ## Authoritative pair
 
 From this point forward, calibration work must use this pair as its starting reference unless the user supplies a newer live export:
+This was the lock **on 2026-10-10**, not a live read on every later date. The complete JSON and `.mdat` named below are not checked into this repository; obtain them before attempting exact reproduction or a new numerical fit.
 
 - DSP export timestamp: **2026-10-10T18:58:49.858Z**
 - DSP title: `Stereo-LR-balanced-L-PAD`

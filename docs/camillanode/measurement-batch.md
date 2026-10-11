@@ -1,7 +1,5 @@
 # E-Stack Measurement Batch
 
-> **E-Stack SoundSystem actual REW connection (confirmed by user, 2026-10-10): physical IN3 for BOTH modes.** `Measure current system` always routes physical IN3 automatically (CamillaDSP zero-based channel 2). Imported calibration campaigns use their optional `defaults.measurementInput` and must select **`measurementInput: 3`** to use the same connected socket. The previous E-Stack IN5 note was superseded. The generic IN4 examples below illustrate the one-based numbering convention; they do **not** describe the current E-Stack wiring. Source gain 0 dB in the mixer is separate from each output way's Gain filter.
-
 Measurement Batch provides **two different REW workflows** on the running CamillaDSP configuration:
 
 - **Imported campaign (calibration mode):** repeatable JSON sequence with optional, guarded changes to individual ways and input filters.

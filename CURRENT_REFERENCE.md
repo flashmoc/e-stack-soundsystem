@@ -2,15 +2,16 @@
 
 ## Status
 
-**WORKING / LOCKED BASELINE FOR NEXT CALIBRATION PASSES — not yet final calibration.**
+**WORKING / LOCKED BASELINE DATÉE — not yet final calibration.** These are the last parameters documented in this repository, **not a live read of the Raspberry on 2026-10-11**.
 
-Authoritative source from now on:
+Source cited for this dated baseline:
 - live export timestamp: **2026-10-10T18:58:49.858Z**
 - title: `Stereo-LR-balanced-L-PAD`
 - config revision: `3b3d5f8e04576343db5a63b3a549f19dd92db640ee3955145d99aaed9e16631f`
 - acoustic reference supplied in the same handoff: `oct. 10 20_57_36.mdat`
 
 This pair supersedes all earlier gain/delay/level references when they differ.
+The complete export JSON and the named `.mdat` are **not stored in this Git repository**; the values below are a transcription. Compare with a fresh live export before treating them as the current running or startup state. A saved System Preset export omits hardware devices and mixer definitions, whereas a live export includes them. Neither export alone proves the physical DAC socket mapping.
 
 ## Master and way gains
 
@@ -22,7 +23,7 @@ This pair supersedes all earlier gain/delay/level references when they differ.
 - HIGH L: **-4.0 dB**
 - HIGH R: **-4.0 dB**
 
-There is therefore **no current DSP L/R gain offset** on MID or HIGH in this locked baseline.
+There is **no DSP L/R gain offset** on MID or HIGH in this dated baseline.
 
 ## Polarities
 
@@ -93,9 +94,9 @@ Mixer `estack_preview`:
 - OUT3 MID R: IN1 at 0 dB
 - OUT4 HIGH L: IN0 at 0 dB
 - OUT5 HIGH R: IN1 at 0 dB
-- OUT6/7 spare
+- mixer destinations 6/7 unused in the cited configuration; physical connector assignments remain to be verified on hardware
 
-Measurement source — current agreed wiring:
+Measurement source — user-reported wiring for these campaigns:
 - physical **IN3**
 - CamillaDSP zero-based **IN2 / channel 2**
 - imported Measurement Batch: **`measurementInput: 3`** because this field uses one-based physical input numbering
@@ -127,4 +128,5 @@ Compressors:
 7. final room/system target EQ;
 8. final reference export.
 
-Do not use an older chat value or older repo snapshot in place of this locked baseline unless the user explicitly changes the live system again.
+Do not use an older chat value or older repo snapshot in place of this dated baseline without a newer verified export.
+If a newer live export exists, it supersedes this **dated** baseline; record its JSON, revision, timestamp and associated REW measurement here before changing the reference values.

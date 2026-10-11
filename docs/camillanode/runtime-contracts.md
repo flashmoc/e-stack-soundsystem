@@ -1,6 +1,6 @@
 # Runtime and API contracts
 
-E-Stack DSP migrations reuse these CamillaNode contracts. Do not rename,
+E-Stack DSP retains these CamillaNode-compatible contracts. Do not rename,
 replace or bypass them without an explicit architectural decision.
 
 ## Browser transport
@@ -9,7 +9,7 @@ replace or bypass them without an explicit architectural decision.
 | --- | --- | --- |
 | `/ws/dsp` | Main CamillaDSP command channel | `CAMILLADSP_PROXY_HOST` / `CAMILLADSP_PORT` (default `127.0.0.1:1234`) |
 | `/ws/spectrum` | Separate analyser command channel | `CAMILLA_SPECTRUM_PORT` (default `6413`) |
-| `/api/runtime` | Public runtime mode and port metadata | Existing CamillaNode server |
+| `/api/runtime` | Public runtime mode and port metadata | Standalone E-Stack DSP server |
 
 Browsers connect only to the same-origin paths. They never open a direct
 socket to CamillaDSP ports.
@@ -19,7 +19,7 @@ socket to CamillaDSP ports.
 | Contract | Role |
 | --- | --- |
 | `GET /getConfigFile` | Reads the complete `savedConfigs.dat` collection |
-| `POST /saveConfigFile` | Replaces that validated collection atomically at the application layer |
+| `POST /saveConfigFile` | Atomic compare-and-swap of non-system records; see below |
 | `GET /getConfigList`, `GET /getConfig` | Named configuration listing/read |
 | `POST /saveConfig`, `/saveConfigName` | Named/current configuration persistence |
 
@@ -41,3 +41,49 @@ Existing storage names, URL shapes, request/response meanings and baseline
 semantics are part of the E-Stack runtime contract. Product work can add a
 typed domain façade above them, but may not silently fork the backend or create
 a second server.
+
+## System preset and concurrent collection writes
+
+GET /api/system-presets returns current/startup state, preset summaries and
+workflow blocking. POST /api/system-presets/capture accepts name and optional
+explicit overwrite; /apply and /delete accept an existing id. These operations
+never accept a browser-authored processing graph. GET/POST /api/startup-config
+retain yaml/specific/last modes and existing state fields. /active verifies live
+processing and Master before accepting historical active-state notifications.
+
+GET `/api/system-presets/export?scope=live` returns a read-only full live DSP
+configuration plus Master for measurement planning. It refuses temporary
+Signal Generator/Measurement Batch states. `?scope=preset&id=<id>` returns one
+saved processing snapshot and Master, explicitly marked as saved rather than
+live. Neither form writes DSP state or exports unrelated saved records.
+
+GET /getConfigFile retains its array response and adds an ETag revision.
+POST /saveConfigFile accepts {base, records}; base must exactly match the current
+collection. Historical array clients must send the current ETag as If-Match.
+Stale or missing revisions return 409. Both forms reject changes to estack-system
+records: use the owned System Preset API. This explicit compatibility tightening
+prevents stale Global EQ/legacy writes from erasing concurrent system changes.
+
+## Expert processing and protection
+
+GET /api/advanced returns live config plus its revision. POST /api/advanced/edit
+accepts {revision, operation} for filter/processor parameters, an existing mixer
+source, neutral filter insertion or permitted deletion, never raw config upload.
+POST /api/output-protection accepts {channel, clip} and changes only that way's
+limiter ceiling and compressor threshold (clip − 1 dB). Both use the server
+workflow gate and verified safe-Master transaction.
+
+GET /api/chunk-size returns the live sample rate, current size and block
+duration, recommended size, allowed presets, DSP revision and `live-only`
+persistence. POST /api/chunk-size accepts `{revision, chunksize,
+acknowledgeAudioInterruption: true}`. It changes only the live
+`devices.chunksize` through a guarded server transaction. A stale revision,
+active temporary workflow, unsupported preset or missing acknowledgement is
+rejected. No YAML or other device setting is written.
+
+POST /api/system-presets/rename accepts {id, name}. It keeps the record ID,
+data and creation date, rejects duplicate names and updates matching active,
+startup, last-used and boot-applied names without contacting the DSP.
+
+Input Processing dual-EQ state and its scoped transaction API are specified in
+[Input Processing](pages/input-processing.md#state-and-transaction-contract).

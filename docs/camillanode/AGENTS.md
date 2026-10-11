@@ -1,6 +1,6 @@
 # E-Stack DSP agent guide
 
-1. Read [docs/README.md](docs/README.md) first.
+1. Read [docs/README.md](README.md) first.
 2. `/estack-dsp/` is the product frontend. The legacy UI is a behavioral
    reference, not the architecture to extend.
 3. Reuse the existing CamillaNode backend; do not create a second backend.
@@ -12,3 +12,6 @@
    tests for every safety-critical change.
 7. Do not create patch stacks named `Fix`, `V2`, `V3` or `Final`.
 8. Real hardware writes require an explicit hardware-acceptance task.
+9. For software validation, use the canonical Linux Dev Container workflow in
+   [docs/development.md](development.md): `npm run demo:check`, `npm test`
+   and relevant E2E tests. Simulation/E2E never replaces Raspberry acceptance.

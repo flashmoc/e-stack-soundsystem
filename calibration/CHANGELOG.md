@@ -1,5 +1,13 @@
 # Changelog
 
+## 2026-10-11 — audit documentaire (sans modification DSP)
+
+- Synchronisation **octet pour octet** de toute la documentation Markdown de `flashmoc/e-stack-dsp` branche `main` au commit `642ede541e282ce9329390698bdbad5075577808` dans `docs/camillanode/`, avec provenance par blob dans `SOURCE.md`. Les anciennes instructions de déploiement `camillaNode-EStack` ne décrivent plus le logiciel produit.
+- Ajout de `docs/estack-dsp-software-status.md` pour distinguer code source, version réellement déployée et état DSP/acoustique. La fonction d'import JSON des System Presets est signalée comme **branche locale non fusionnée**, pas comme fonction disponible sur `main`.
+- Correction du protocole et du compte rendu historiques : la campagne du 30 septembre vise désormais `measurementInput: 3` dans son JSON ; son texte indiquait encore IN5. Les plans des 30 septembre et 7 octobre restent historiques et ne sont pas des preuves d'exécution.
+- Les délais SUB/KICK et paramètres de protection déjà transcrits ne sont plus présentés comme inconnus ; restent manquants le JSON complet, le YAML de démarrage et la vérification physique. Les références du 10 octobre sont explicitement **datées**, non garanties live le 11 octobre.
+- Clarification : dans le code actuel, GEQ/PEQ d'entrée actifs sont **pré-mixer** ; les déplacer après le mixer reste une proposition non implémentée. Aucune valeur audio, campagne JSON ou configuration Raspberry n'a été modifiée par cet audit.
+
 ## 2026-10-10
 
 Locked calibration baseline superseding earlier same-day exports:
@@ -45,5 +53,5 @@ Centralisation documentaire CamillaNode :
 - ajout de la documentation complète `Measurement Batch`,
 - copie des exemples JSON Measurement Batch dans `measurements/batch-examples/`,
 - ajout de `docs/camillanode/SOURCE.md` avec provenance, SHAs source et règle de resynchronisation,
-- ajout explicite de la différence locale : système actuel REW sur **physical IN5**, donc `measurementInput: 5` pour les nouveaux batchs,
+- ajout à cette date de la différence locale : REW sur **physical IN5**, donc `measurementInput: 5` pour les batchs de septembre (**note historique, remplacée depuis par IN3**),
 - mise à jour de `START_HERE.md`, `README.md` et `measurements/README.md` pour qu’un nouvel assistant puisse reprendre depuis ce repo seul.

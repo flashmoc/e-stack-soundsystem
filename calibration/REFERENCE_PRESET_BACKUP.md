@@ -1,4 +1,4 @@
-# E-Stack — Reference Preset Backup
+# E-Stack — Reference Preset Parameter Transcription
 
 ## Status
 
@@ -11,6 +11,7 @@ Associated acoustic reference supplied by the user:
 - `oct. 10 20_57_36.mdat`
 
 Not yet a final calibrated REFERENCE.
+**Not a restorable preset file:** this document transcribes selected fields from the cited live export. The complete export JSON, startup YAML, full filter/pipeline ordering and physical-device settings are not stored here. Obtain those before attempting an exact restoration.
 
 ## 1. Master / gains
 
@@ -89,7 +90,7 @@ Outputs:
 - 3 MID R
 - 4 HIGH L
 - 5 HIGH R
-- 6/7 spare
+- mixer destinations 6/7 unused in the cited export; physical sockets unverified here
 
 Normal programme:
 - SUB/KICK L+R sum, each source -6.0206 dB

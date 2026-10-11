@@ -1,6 +1,6 @@
 # E-Stack — Current State
 
-## Authoritative baseline
+## Dernière baseline documentée (pas une lecture live)
 
 Latest live DSP export supplied **2026-10-10**:
 - exportedAt: **2026-10-10T18:58:49.858Z**
@@ -10,12 +10,13 @@ Latest live DSP export supplied **2026-10-10**:
 - status: **WORKING / LOCKED BASELINE**, not final calibration
 
 This state supersedes earlier 2026-10-10 exports if values differ.
+The full JSON and REW `.mdat` cited here are not versioned in this repository. Verify a newer live export before treating these values as the running Raspberry configuration. See `MISSING_DATA.md`.
 
 ## Architecture
 
 - Raspberry Pi 5
 - RASPIAUDIO 8×IN / 8×OUT
-- CamillaDSP / CamillaNode
+- CamillaDSP 4.1.3 / E-Stack DSP standalone on Raspberry Pi 5 (installation rapportée ; version du service à revérifier localement)
 - REW with hardware timing loopback
 - Komplete Audio 1
 - ECM8000
@@ -29,7 +30,7 @@ This state supersedes earlier 2026-10-10 exports if values differ.
 - OUT3 = MID R
 - OUT4 = HIGH L
 - OUT5 = HIGH R
-- OUT6/7 = spare
+- mixer destinations 6/7 are unused in the cited export; physical sockets not validated here
 
 ## Current master / gains
 
@@ -116,7 +117,7 @@ Programme IN0/IN1:
 
 The preset export does not encode which physical socket currently carries the REW cable.
 
-Imported batch JSONs now specify `measurementInput: 3`, matching physical IN3 / Camilla zero-based IN2.
+The three project batch JSONs specify `measurementInput: 3`; the user reports physical IN3 as the current REW cable. This field selects CamillaDSP zero-based channel 2, but the physical/ALSA correspondence still needs a signal test.
 
 ## Protection
 
@@ -141,4 +142,4 @@ Immediate sequence:
 4. validate SUM/REV physically;
 5. optimise room/system EQ only afterwards.
 
-Any future recommendation must be referenced back to config revision `3b3d5f8e...` unless a newer live export is supplied.
+Use config revision `3b3d5f8e...` only for analysis of this dated baseline; a newer live export must replace it before live-setting recommendations.

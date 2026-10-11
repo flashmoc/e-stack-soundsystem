@@ -114,7 +114,7 @@ Pour :
 - correction d'installation,
 - balance tonale.
 
-Le System EQ doit idéalement être après le mixer commun et avant les traitements de voies, afin que musique et source REW traversent le même EQ.
+Dans E-Stack DSP, les sections GEQ/PEQ d'entrée partagées sont placées **avant** le mixer lorsqu'elles sont actives. Measurement Batch recopie temporairement ces filtres partagés sur l'entrée REW dédiée ; c'est ainsi que la musique et la mesure peuvent traverser les mêmes objets de filtre. Un éventuel System EQ post-mixer est une **hypothèse d'évolution**, à concevoir et vérifier séparément. Ne pas déplacer l'EQ existant ni modifier le routage pour appliquer cette préférence méthodologique.
 
 ## 6. Nulls de pièce
 
