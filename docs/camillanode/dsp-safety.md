@@ -49,3 +49,69 @@ use a temporary `−60 dB` Master transition with readback and restoration. See
 Code tests are not hardware acceptance. Real DSP writes require an explicit
 hardware task, an initial live snapshot, reversible steps, readback checks and
 restoration. If any invariant fails, stop; do not fix forward on the Raspberry.
+
+## System Preset transaction and workflow exclusion
+
+System Preset capture/apply runs in the shared server workflowGate, as do
+existing Signal Generator and Measurement Batch transition queues (including
+stop, timeout and restart recovery). Once acquired, the system operation checks
+both persistent temporary-session files. It refuses capture/apply if either
+exists, so it cannot capture temporary routing or invalidate a pending restore.
+Existing Signal-vs-Measurement checks remain unchanged and now share ordering.
+This gate covers operations in the E-Stack DSP server; Raspberry service restart
+integration remains a separately accepted hardware boundary, unchanged here.
+
+Apply reads live configuration, sets -60 dB Master, validates saved references,
+merges processing into the live hardware/mixer configuration, uploads and verifies
+the expected full readback before restoring the intended Master. Master readback
+is verified before active/last-used metadata is written. Failure attempts to
+retain -60 dB and reports an error, rather than claiming the requested preset active.
+Captured Master is restricted to finite -100..0 dB; old missing/null values use
+the existing -40 dB fallback instead of accidental 0 dB.
+
+Preset validation now checks the live mixer input/output sizes, source and
+destination indices, duplicate destinations, the final hardware playback size,
+and destinations 0..5 for six-way E-Stack processing. It accepts 8-channel
+playback with either mappings 0..5 or 0..7. Invalid topology is rejected before
+the Master is attenuated or the DSP configuration is written. Preset apply and
+startup recall copy only filters, processors and pipeline into a clone of the
+live configuration; live `devices` and `mixers` remain authoritative even if a
+stored record contains those keys.
+
+## Advanced edits and paired output protection
+
+Both are server-owned typed operations, serialized through the same workflow
+gate. Active Signal/Measurement snapshots and SignalGenerator capture are
+rejected. Advanced requires the exact current configuration revision. Operations
+clone live state, preserve devices, validate references, attenuate to the lower
+of current Master and −60 dB, upload once, verify the entire readback, then restore
+and verify Master. Failure after attenuation holds that safe value and reports
+it; the UI never silently restores volume after an unverified graph write.
+
+CamillaDSP can acknowledge `SetConfigJson` before `GetConfigJson` exposes the
+new graph. Processing edits therefore retry the full revision readback up to
+26 times, 40 ms apart. They restore Master only after the exact requested graph
+appears; a persistent mismatch still holds the attenuated Master.
+
+Output protection requires a unique per-way Limiter and independent active
+Compressor. Only clip_limit and threshold change; threshold is always clip_limit
+minus 1 dB. Ambiguous/shared/missing protection is refused. Attack, release,
+ratio, routing and other ways remain unchanged.
+
+Master mute uses native GetMute/SetMute and verifies the result. It never emulates
+mute by changing volume or rewriting way gains.
+
+## Live chunk size
+
+Preferences uses the server-owned `/api/chunk-size` operation. The request
+contains a reviewed configuration revision and one offered power-of-two size;
+the browser cannot send a replacement configuration. The server refuses active
+Signal Generator or Measurement Batch state and SignalGenerator capture, checks
+the exact revision and playback-buffer compatibility, clones the live DSP
+configuration, and changes only `devices.chunksize`. It validates processing,
+attenuates Master to the lower of its current value and −60 dB, uploads once,
+verifies the full config readback, then restores and verifies Master. On a
+post-attenuation failure the server attempts and verifies a safe Master hold;
+if it cannot verify the hold, the error says so. The transaction does not write
+hardware YAML, ALSA or startup state;
+CamillaDSP may briefly interrupt audio when applying a new buffer size.

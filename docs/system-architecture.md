@@ -4,23 +4,25 @@
 
 Source musicale :
 
-`IN0/IN1 → traitement entrée → mixer estack_preview → traitements système communs → crossovers / PEQ / gains / delays / polarités / protections → OUT0..OUT5`
+`IN0/IN1 → traitement d'entrée partagé s'il est actif → mixer estack_preview → crossovers / PEQ de voie / gains / délais / polarités / protections → destinations logiques 0..5`
+
+Dans l'export daté du 10 octobre, les définitions GEQ/PEQ d'entrée existent mais sont **désactivées** ; aucune étape Global EQ ou Loudness active n'apparaît avant le mixer. Le logiciel place les traitements d'entrée actifs **avant** le mixer. Un « System EQ » commun après le mixer est une proposition d'architecture distincte, pas le graphe observé. CamillaDSP expose 8 canaux matériels playback ; les six voies logiques ne prouvent pas quelles prises physiques du DAC8x leur correspondent.
 
 ## Mesures REW — deux chemins selon le mode
 
 **1. Measure current system (état actuel)**
 
-`REW → RASPIAUDIO physical IN3 → CamillaDSP source CH2 (zéro-based) → shared Input L/R filters mirrored to IN3 → mixer (source 0 dB) → traitements de voies OUT0..OUT5`
+`REW → prise IN3 rapportée → CamillaDSP source CH2 (index zéro) → filtres Input L/R partagés recopiés sur CH2 s'ils sont actifs → mixer (gain source 0 dB) → six voies logiques`
 
 - Le bouton **MEASURE NOW** force temporairement **IN3** sur les six destinations logiques du mixer, sans toucher aux réglages matériels `devices`.
 - Les gains de voies Control, leurs états MUTE (pour les voies choisies), Input Trim, Loudness, EQ, crossovers, délais, polarités et protections sont conservés depuis la capture au démarrage.
 - Les voies non choisies sont mutées temporairement. `−60 dB` sur une voie est une atténuation, **pas un mute**.
-- Pour mesurer via ce mode, vérifier que la **sortie de l'interface REW est réellement câblée à physical IN3** ; le dernier schéma historique mentionne IN5 pour les anciennes campagnes.
+- Pour mesurer via ce mode, vérifier que la **sortie de l'interface REW est réellement câblée à physical IN3** et que l'ordre ALSA des entrées le confirme ; le dernier schéma historique mentionne IN5 pour d'anciennes campagnes.
 - Garder le volume WiiM constant pendant le sweep si Loudness est actif.
 
 **2. Campagne JSON importée (calibration)**
 
-Chemin matériel actuel :
+Chemin visé par les JSON actuels, sous réserve de vérification physique :
 
 `REW → RASPIAUDIO physical IN3 → CamillaDSP zero-based IN2 / channel 2 → mixer (source 0 dB avec measurementInput: 3) → traitements de voies`
 
@@ -32,7 +34,7 @@ Chemin matériel actuel :
 
 **Règle commune :** le Master est abaissé à au plus −60 dB pour une transition de graphe, puis restauré. Fin/annulation rétablit la configuration et le mixer capturés. Aucun changement permanent au hardware `devices`.
 
-**À vérifier sur le Raspberry :** après les évolutions de câblage, confirmer l'entrée physique effectivement alimentée par la Komplete Audio 1 et sa correspondance ALSA/CamillaDSP, puis mettre à jour l'état courant. Ne pas déduire cette correspondance du seul numéro de source logique.
+**À vérifier sur le Raspberry :** confirmer l'entrée physique alimentée par la Komplete Audio 1, sa correspondance ALSA/CamillaDSP et les prises des huit sorties. Ne pas déduire ce mapping physique du seul numéro de source ou de destination logique.
 
 ## Outputs
 
@@ -42,7 +44,7 @@ Chemin matériel actuel :
 - OUT3 MID R
 - OUT4 HIGH L
 - OUT5 HIGH R
-- OUT6/7 libres
+- destinations logiques 6/7 sans voie E-Stack dans l'export daté ; prises physiques à vérifier
 
 ## Normal routing
 

@@ -2,17 +2,17 @@
 
 ## Purpose
 
-This campaign captures enough timed complex measurements to optimise the current stereo living-room deployment by analysis before changing the reference preset.
+This is a **historical acquisition plan**, not evidence that its 42 steps were run. It was prepared for the then-current Stereo preset; it does not describe the later locked 2026-10-10 baseline.
 
 Batch:
 `measurements/batches/2026-09-30_stereo-room-reference-pass1.json`
 
 Expected baseline:
 - saved preset: `Stereo`
-- Measurement Batch source: physical IN5 (`measurementInput: 5`)
+- Measurement Batch source in the **current JSON file**: intended physical IN3 (`measurementInput: 3`). The original IN5 plan is superseded; verify the actual socket/ALSA mapping before running.
 - sample rate: 48 kHz
 - REW loopback timing reference enabled
-- master and per-way settings are captured live at `START BATCH`
+- master and per-way settings are captured live at `START BATCH`, so the result depends on the DSP state at that time, not on this plan's original Stereo assumptions
 
 The batch disables `ESTACK_LOUDNESS` for the whole campaign so the dynamic listening curve does not contaminate calibration measurements. Output crossovers, PEQ, gains, delays, compressors and hard limiters remain active.
 

@@ -2,16 +2,16 @@
 
 ## Purpose
 
-This campaign is the **first calibration pass** to run before room-target optimisation.
+This is a **historical measurement plan**, not evidence that its 42 steps were run. It was drafted for an earlier Stereo state; inspect a fresh live baseline before reusing it.
 
 It exists because the current Stereo preset still contains provisional timing choices. The campaign acquires the six DSP ways independently at five listening-area positions with the REW hardware loopback timing reference, so relative delay, polarity and optional first-order all-pass phase trims can be optimised numerically before making more room-EQ decisions.
 
 Batch:
 `measurements/batches/2026-10-07_stereo-phase-delay-passA.json`
 
-## Baseline assumptions from the current Stereo export
+## Historical baseline assumptions from the 2026-09-30 Stereo export
 
-Current saved-preset values supplied on 2026-09-30 include:
+Saved-preset values supplied on 2026-09-30 included:
 
 - SUB delay: 0.000 ms
 - KICK delay: 1.300 ms

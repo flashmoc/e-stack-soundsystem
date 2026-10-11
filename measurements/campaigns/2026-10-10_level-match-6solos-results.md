@@ -5,6 +5,8 @@
 REW file supplied by user:
 - `FULL_measuremennt.mdat`
 
+The raw `.mdat` is not committed here. The numbers below are the dated analysis record; reproducing the complex calculation requires the source file and the complete live DSP export.
+
 Locked DSP starting reference:
 - title: `Stereo-LR-balanced-L-PAD`
 - export timestamp: `2026-10-10T18:58:49.858Z`

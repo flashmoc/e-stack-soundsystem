@@ -1,44 +1,46 @@
-# CamillaNode documentation mirror — source and rules
+# Source du miroir E-Stack DSP
 
-This directory mirrors the technical documentation from:
+Les fichiers de ce répertoire proviennent des documents de [flashmoc/e-stack-dsp](https://github.com/flashmoc/e-stack-dsp) au commit [`0fd2acf8eacf4abe3bfe337b020465f7e13ec7b8`](https://github.com/flashmoc/e-stack-dsp/tree/0fd2acf8eacf4abe3bfe337b020465f7e13ec7b8) (branche `main`, consultée le 2026-10-11). Ils décrivent le logiciel à ce commit, **pas** l'état acoustique actuel ni la version nécessairement installée sur le Raspberry. Tous sont copiés **octet pour octet**, sauf les liens relatifs corrigés dans `AGENTS.md` et `repository-README.md` pour fonctionner depuis ce répertoire. Le tableau conserve les empreintes des blobs **source**, avant ces corrections de liens.
 
-- repository: `flashmoc/camillaNode-EStack`
-- source branch: `feature/estack-dsp-product`
-- sync date: `2026-09-08`
+L'ancien miroir provenait de `flashmoc/camillaNode-EStack` en septembre 2026. Cette provenance est historique et ne décrit plus les copies ci-dessous. Le logiciel produit est désormais le dépôt autonome `e-stack-dsp`. Pour modifier le comportement, changer ce dépôt source ; pour décrire le câblage, les mesures et la calibration E-Stack, modifier les documents propres à `e-stack-soundsystem`.
 
-The mirrored files are intentionally kept under `docs/camillanode/` so they do not overwrite the E-Stack SoundSystem's own calibration/system documentation.
-
-## Mirrored source documents
-
-| Source path | Destination | Source blob SHA |
+| Source | Copie ici | Blob Git source |
 | --- | --- | --- |
-| `README.md` | `docs/camillanode/repository-README.md` | `c40916b22abfc8b86e39939d8cbc1ce7a9b7d99f` |
-| `AGENTS.md` | `docs/camillanode/AGENTS.md` | `7045df4e4e758acc9a8295a329f72978958182bf` |
-| `docs/README.md` | `docs/camillanode/README.md` | `23bb6ef2979f7d791b928ec51959d6c72ff2e6da` |
-| `docs/architecture.md` | `docs/camillanode/architecture.md` | `a0fb0f19d92b04b0faa9a37e10ec7333ae91dd4b` |
-| `docs/dsp-safety.md` | `docs/camillanode/dsp-safety.md` | `02bf1113202fd940639267724dd6add98d79f631` |
-| `docs/estack-dsp-architecture.md` | `docs/camillanode/estack-dsp-architecture.md` | `d463dda5cdae9965ed28f5e2784534abec7136a7` |
-| `docs/estack-dsp-product.md` | `docs/camillanode/estack-dsp-product.md` | `ba4226ab409303c412fdafb945e99b999504e62a` |
-| `docs/measurement-batch.md` (**resynchronisé depuis `flashmoc/e-stack-dsp`, branche `main`, 2026-10-10**) | `docs/camillanode/measurement-batch.md` | `917dbd78d60d818e71c24c788ce405fe4a450f61` |
-| `docs/persistence.md` | `docs/camillanode/persistence.md` | `b17a0a33ac19db96260da105a4c7232fb3a0b93a` |
-| `docs/raspberry.md` | `docs/camillanode/raspberry.md` | `07dead708752b0182c5794bf6631707d178136e9` |
-| `docs/runtime-contracts.md` | `docs/camillanode/runtime-contracts.md` | `73e3ab622b84c313d54ef32e2d700fa565ebda73` |
-| `docs/ui-architecture.md` | `docs/camillanode/ui-architecture.md` | `25dec31e2e17d64e1f0f446a9e5268e48a917666` |
-| `docs/pages/control.md` | `docs/camillanode/pages/control.md` | `e5c8e42f0434a59d22b7aa920907fcd2ff8a7536` |
+| `docs/README.md` | `README.md` | `cff93224958a4b93d5add47e0cf47b75b33286b4` |
+| `docs/architecture.md` | `architecture.md` | `a0fb0f19d92b04b0faa9a37e10ec7333ae91dd4b` |
+| `docs/development.md` | `development.md` | `620ab1d0b1b27ccb43425aafbd360f8168cbd877` |
+| `docs/dsp-safety.md` | `dsp-safety.md` | `290ff21e8a99f193ab68173fe0fdb577d5e025fa` |
+| `docs/estack-dsp-architecture.md` | `estack-dsp-architecture.md` | `3f116069643e0e495ba260c01aa8b059b1fd22ba` |
+| `docs/estack-dsp-product.md` | `estack-dsp-product.md` | `40323288103f717fff98636b7085c211d1aeafba` |
+| `docs/input-dual-eq-delivery.md` | `input-dual-eq-delivery.md` | `49eb76ee527134d8c985fec91fa8f7ee58cafe03` |
+| `docs/live-mock-audit.md` | `live-mock-audit.md` | `4f9e1c58216eb7a014ed158b913876ee8991dd7b` |
+| `docs/measurement-batch.md` | `measurement-batch.md` | `e42c0607c4fb8a55273b27655f0afc2608d36ae1` |
+| `docs/operational-ownership.md` | `operational-ownership.md` | `f2c29e4ce7582a49c3cce80c7d89f774bbbcc71e` |
+| `docs/pages/advanced.md` | `pages/advanced.md` | `401e4ba173ab3aa1b9cdc32f15cbdd55c9be603a` |
+| `docs/pages/connections.md` | `pages/connections.md` | `5cd59ca897c9cbf8662e09ff3b4c8c265b1da499` |
+| `docs/pages/control.md` | `pages/control.md` | `ef1ad0c9d2650bf37e5ec54e1a0ba8eb3a46b2df` |
+| `docs/pages/input-processing.md` | `pages/input-processing.md` | `5ebf00e381c49f99e07abcfa1e72395eda6e45d3` |
+| `docs/pages/loudness.md` | `pages/loudness.md` | `374e4e0c04e162426b5847abeac43673106e371a` |
+| `docs/pages/measurement-batch.md` | `pages/measurement-batch.md` | `d084a4b805eb4e94d9012ead3563553333bd551d` |
+| `docs/pages/output-processing.md` | `pages/output-processing.md` | `91a0893b2c4a060e2b5639c4edabde12d55adbf1` |
+| `docs/pages/preferences.md` | `pages/preferences.md` | `468dbf1353d65a038ed0b761ebf49746d8fbbf0a` |
+| `docs/pages/signal-generator.md` | `pages/signal-generator.md` | `3a3e712ef9ebd8a276204ded7aea9096da605f97` |
+| `docs/pages/system-presets.md` | `pages/system-presets.md` | `81e11cfabe0f1fac62d7e2a20a0f6f56ffeb1c61` |
+| `docs/persistence.md` | `persistence.md` | `181daf233b5457864e54d7e7a2f197c6a638358a` |
+| `docs/raspberry-rc1.md` | `raspberry-rc1.md` | `3c34f959b23a89d8b9f7bef86f27e7fea425125c` |
+| `docs/raspberry.md` | `raspberry.md` | `d58abbeb993b72dfa52d611a7d21fdd70e16c6f1` |
+| `docs/runtime-contracts.md` | `runtime-contracts.md` | `bbfba32c0c75bdf04b5c8c386f0161c505caec4a` |
+| `docs/software-release-audit.md` | `software-release-audit.md` | `dcf196e5e299c29ddbd4deba5ad0e59652cebb0e` |
+| `docs/standalone-runtime.md` | `standalone-runtime.md` | `e7e4450f34ed23d6c4cae28de2ab28b19fae1089` |
+| `docs/ui-architecture.md` | `ui-architecture.md` | `25dec31e2e17d64e1f0f446a9e5268e48a917666` |
+| `AGENTS.md` | `AGENTS.md` | `5bea3c9fdfdc754ebc3909f429d2ae2c1dd76276` |
+| `README.md` | `repository-README.md` | `1402f1a43efe0efe523af9e213397f1f807d243f` |
 
-Supporting Measurement Batch examples were also copied from the CamillaNode repository to `measurements/batch-examples/`.
+## Règle de mise à jour
 
-## Authority / update rule
+1. Choisir un commit précis de `flashmoc/e-stack-dsp` et recopier les documents sans modification locale silencieuse.
+2. Actualiser ce commit et les empreintes de blobs ci-dessus.
+3. Signaler séparément les fonctionnalités non fusionnées sur `main` et les différences entre code, déploiement Raspberry et validation physique.
+4. Vérifier les liens Markdown internes et les exemples JSON après synchronisation.
 
-- `camillaNode-EStack` remains the historical source for the other mirrored CamillaNode documentation and runtime/API contracts.
-- **Exception explicite (2026-10-10):** `docs/camillanode/measurement-batch.md` is now synchronized from `flashmoc/e-stack-dsp` at `docs/measurement-batch.md` (source blob SHA in the table), with a separate top-of-file E-Stack SoundSystem cabling note. The `e-stack-dsp` repository contains the currently verified dual-mode Measurement Batch implementation. The original 2026-09-08 mirror source/branch metadata continues to describe the **other** files in this directory.
-- `e-stack-soundsystem` is the central project/system/calibration source of truth and contains a mirrored copy of the CamillaNode documentation so a new assistant can work from one repository.
-- If CamillaNode code or its docs change, re-sync this mirror and update the source SHAs above.
-- Never silently edit a mirrored file to make it match the current hardware. Put E-Stack-specific differences in the system repo's own documentation instead.
-
-## E-Stack measurement inputs: distinguish the modes
-
-- **Measure current system / live snapshot:** the server always routes **physical IN3** to OUT1…OUT6 at 0 dB mixer-source gain. This is independent of `defaults.measurementInput` in any saved JSON. The REW interface must actually feed physical IN3 for this shortcut to produce a valid sweep.
-- **Imported JSON campaign / calibration:** optional `defaults.measurementInput` chooses the physical input. The **current agreed E-Stack wiring is physical IN3 → CamillaDSP zero-based IN2/channel 2**, therefore use `"measurementInput": 3`.
-- The older physical IN5 / logical IN4 campaign wiring note is superseded.
-- **Baseline policies differ:** the calibration campaign forces Loudness and Input Trim off; current-system mode preserves both, along with the selected ways' existing gains/mutes.
+La correspondance **IN3 physique ↔ canal CamillaDSP 2 (index zéro)** est une information de câblage rapportée pour l'installation E-Stack ; le code ne peut pas la prouver à lui seul. Les deux modes de Measurement Batch, leurs gains, leurs mutes et la restauration sont décrits dans [measurement-batch.md](measurement-batch.md). Les paramètres et résultats acoustiques datés restent dans les documents de calibration du présent dépôt.

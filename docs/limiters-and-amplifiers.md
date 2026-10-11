@@ -1,6 +1,7 @@
 # E-Stack — Amplificateurs et limiteurs
 
 Source : tableau utilisateur daté du **30/08/2026**, recopié depuis la note de calibration. Les valeurs ci-dessous sont considérées comme la référence connue tant qu'une mesure ou la configuration CamillaDSP réelle ne les remplace pas.
+Les seuils et temps DSP recoupent la **transcription** de l'export du 10/10/2026 dans `CURRENT_REFERENCE.md` ; les gains d'amplificateur, tensions et positions de potentiomètres proviennent de la note utilisateur et ne sont pas vérifiés ici par mesure électrique. Ne pas utiliser ce tableau comme certification des protections physiques.
 
 ## Amplificateurs, gains mesurés et limites HP
 
